@@ -12,9 +12,6 @@ import mozilla.components.lib.crash.service.CrashReporterService
 import mozilla.components.lib.crash.service.GleanCrashReporterService
 import mozilla.components.lib.crash.service.MozillaSocorroService
 import mozilla.components.lib.crash.service.SentryService
-import mozilla.components.service.glean.Glean
-import mozilla.components.service.glean.config.Configuration
-import mozilla.components.service.glean.net.ConceptFetchHttpUploader
 import org.mozilla.geckoview.BuildConfig.MOZ_APP_BUILDID
 import org.mozilla.geckoview.BuildConfig.MOZ_APP_VENDOR
 import org.mozilla.geckoview.BuildConfig.MOZ_APP_VERSION
@@ -68,13 +65,6 @@ class Analytics(private val context: Context) {
         )
     }
 
-    internal fun initializeGlean() {
-        val enableUpload =
-            BuildConfig.TELEMETRY_ENABLED && Settings.isTelemetryEnabled(context)
-        Glean.initialize(context, enableUpload, Configuration(
-            httpClient = ConceptFetchHttpUploader(lazy { context.components.core.client })
-        ))
-    }
 }
 
 fun isSentryEnabled() = !BuildConfig.SENTRY_TOKEN.isNullOrEmpty()
