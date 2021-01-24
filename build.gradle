@@ -2,23 +2,8 @@
 
 buildscript {
     repositories {
-        if (project.hasProperty("googleRepo")) {
-            maven {
-                name "Google"
-                url project.property("googleRepo")
-            }
-        } else {
-            google()
-        }
-
-        if (project.hasProperty("jcenterRepo")) {
-            maven {
-                name "BintrayJCenter"
-                url project.property("jcenterRepo")
-            }
-        } else {
-            jcenter()
-        }
+        google()
+        jcenter()
     }
 
     dependencies {
@@ -33,42 +18,12 @@ plugins {
 
 allprojects {
     repositories {
-        if (project.hasProperty("googleRepo")) {
-            maven {
-                name "Google"
-                url project.property("googleRepo")
-            }
-        } else {
-            google()
-        }
-
-        maven {
-            name "Mozilla Nightly"
-            url "https://nightly.maven.mozilla.org/maven2"
-
-            content {
-                // Always fetch components from the snapshots repository
-                includeGroup "org.mozilla.components"
-            }
-        }
+        google()
+        jcenter()
 
         maven {
             name "Mozilla"
             url "https://maven.mozilla.org/maven2"
-
-            content {
-                // Never fetch components from here. We always want to use snapshots.
-                excludeGroup "org.mozilla.components"
-            }
-        }
-
-        if (project.hasProperty("jcenterRepo")) {
-            maven {
-                name "BintrayJCenter"
-                url project.property("jcenterRepo")
-            }
-        } else {
-            jcenter()
         }
     }
 }
