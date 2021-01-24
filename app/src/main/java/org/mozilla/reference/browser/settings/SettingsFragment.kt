@@ -79,20 +79,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferencePrivacy = findPreference(privacyKey)
         val preferenceCustomAddons = findPreference(customAddonsKey)
 
-        val accountManager = requireComponents.backgroundServices.accountManager
-        if (accountManager.authenticatedAccount() != null) {
-            preferenceSignIn.isVisible = false
-            preferencePairSignIn.isVisible = false
-            preferenceFirefoxAccount.summary = accountManager.accountProfile()?.email.orEmpty()
-            preferenceFirefoxAccount.onPreferenceClickListener = getClickListenerForFirefoxAccount()
-        } else {
-            preferenceSignIn.isVisible = true
-            preferenceFirefoxAccount.isVisible = false
-            preferenceFirefoxAccount.onPreferenceClickListener = null
-            preferenceSignIn.onPreferenceClickListener = getClickListenerForSignIn()
-            preferencePairSignIn.isVisible = true
-            preferencePairSignIn.onPreferenceClickListener = getClickListenerForPairingSignIn()
-        }
+        preferenceSignIn.isVisible = true
+        preferenceFirefoxAccount.isVisible = false
+        preferenceFirefoxAccount.onPreferenceClickListener = null
+        preferencePairSignIn.isVisible = true
 
         preferenceMakeDefaultBrowser.onPreferenceClickListener = getClickListenerForMakeDefaultBrowser()
         preferenceRemoteDebugging.onPreferenceChangeListener = getChangeListenerForRemoteDebugging()
@@ -112,40 +102,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         } else {
             defaultClickListener
-        }
-    }
-
-    private fun getClickListenerForSignIn(): OnPreferenceClickListener {
-        return OnPreferenceClickListener {
-            requireComponents.services.accountsAuthFeature.beginAuthentication(requireContext())
-            activity?.finish()
-            true
-        }
-    }
-
-    private fun getClickListenerForPairingSignIn(): OnPreferenceClickListener {
-        return OnPreferenceClickListener {
-            fragmentManager?.beginTransaction()
-                    ?.replace(android.R.id.content, PairSettingsFragment())
-                    ?.addToBackStack(null)
-                    ?.commit()
-            getActionBarUpdater().apply {
-                updateTitle(R.string.pair_preferences)
-            }
-            true
-        }
-    }
-
-    private fun getClickListenerForFirefoxAccount(): OnPreferenceClickListener {
-        return OnPreferenceClickListener {
-            fragmentManager?.beginTransaction()
-                    ?.replace(android.R.id.content, AccountSettingsFragment())
-                    ?.addToBackStack(null)
-                    ?.commit()
-            getActionBarUpdater().apply {
-                updateTitle(R.string.account_settings)
-            }
-            true
         }
     }
 

@@ -148,33 +148,12 @@
           android:parentActivityName=".BrowserActivity" />
 
         <activity
-            android:name=".tabs.synced.SyncedTabsActivity"
-            android:exported="false"
-            android:label="@string/synced_tabs"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".BrowserActivity" />
-
-        <activity
             android:name=".CrashListActivity"
             android:exported="false" />
 
         <service android:name=".media.MediaSessionService"
             android:exported="false" />
 
-        <service
-            android:name=".push.FirebasePush"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <meta-data
-            android:name="firebase_messaging_auto_init_enabled"
-            android:value="true" />
-        <meta-data
-            android:name="firebase_analytics_collection_enabled"
-            android:value="false" />
     </application>
 
 </manifest>

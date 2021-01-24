@@ -83,11 +83,8 @@ dependencies {
     implementation Deps.mozilla_concept_tabstray
     implementation Deps.mozilla_concept_toolbar
     implementation Deps.mozilla_concept_storage
-    implementation Deps.mozilla_concept_sync
-    implementation Deps.mozilla_concept_push
 
     implementation Deps.mozilla_browser_engine_gecko_nightly
-
     implementation Deps.mozilla_browser_awesomebar
     implementation Deps.mozilla_browser_domains
     implementation Deps.mozilla_browser_search
@@ -102,8 +99,6 @@ dependencies {
     implementation Deps.mozilla_browser_icons
     implementation Deps.mozilla_browser_thumbnails
 
-    implementation Deps.mozilla_feature_accounts
-    implementation Deps.mozilla_feature_accounts_push
     implementation Deps.mozilla_feature_addons
     implementation Deps.mozilla_feature_app_links
     implementation Deps.mozilla_feature_awesomebar
@@ -119,11 +114,9 @@ dependencies {
     implementation Deps.mozilla_feature_tabs
     implementation Deps.mozilla_feature_downloads
     implementation Deps.mozilla_feature_prompts
-    implementation Deps.mozilla_feature_push
     implementation Deps.mozilla_feature_pwa
     implementation Deps.mozilla_feature_qr
     implementation Deps.mozilla_feature_readerview
-    implementation Deps.mozilla_feature_syncedtabs
     implementation Deps.mozilla_feature_webcompat
     implementation Deps.mozilla_feature_webnotifications
 
@@ -131,9 +124,6 @@ dependencies {
     implementation Deps.mozilla_ui_colors
     implementation Deps.mozilla_ui_icons
     implementation Deps.mozilla_ui_tabcounter
-
-    implementation Deps.mozilla_service_firefox_accounts
-    implementation Deps.mozilla_service_location
 
     implementation Deps.mozilla_support_images
     implementation Deps.mozilla_support_utils
@@ -143,7 +133,6 @@ dependencies {
     implementation Deps.mozilla_support_webextensions
 
     implementation Deps.mozilla_lib_crash
-    implementation Deps.mozilla_lib_push_firebase
 
     implementation Deps.thirdparty_sentry
 
