@@ -17,23 +17,18 @@ import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.WebExtensionState
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
-import mozilla.components.lib.crash.Crash
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupFeature
 import org.mozilla.reference.browser.addons.WebExtensionActionPopupActivity
 import org.mozilla.reference.browser.browser.BrowserFragment
-import org.mozilla.reference.browser.browser.CrashIntegration
 import org.mozilla.reference.browser.ext.components
-import org.mozilla.reference.browser.ext.isCrashReportActive
 
 /**
  * Activity that holds the [BrowserFragment].
  */
 open class BrowserActivity : AppCompatActivity() {
-
-    private lateinit var crashIntegration: CrashIntegration
 
     private val sessionId: String?
         get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
@@ -57,13 +52,6 @@ open class BrowserActivity : AppCompatActivity() {
                 replace(R.id.container, createBrowserFragment(sessionId))
                 commit()
             }
-        }
-
-        if (isCrashReportActive) {
-            crashIntegration = CrashIntegration(this, components.analytics.crashReporter) { crash ->
-                onNonFatalCrash(crash)
-            }
-            lifecycle.addObserver(crashIntegration)
         }
 
         NotificationManager.checkAndNotifyPolicy(this)
@@ -126,13 +114,6 @@ open class BrowserActivity : AppCompatActivity() {
             "requestCode: $requestCode, resultCode: $resultCode, data: $data")
 
         super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    private fun onNonFatalCrash(crash: Crash) {
-        Snackbar.make(findViewById(android.R.id.content), R.string.crash_report_non_fatal_message, LENGTH_LONG)
-            .setAction(R.string.crash_report_non_fatal_action) {
-                crashIntegration.sendCrashReport(crash)
-            }.show()
     }
 
     private fun openPopup(webExtensionState: WebExtensionState) {

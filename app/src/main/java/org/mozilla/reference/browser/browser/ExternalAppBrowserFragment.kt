@@ -6,6 +6,7 @@ package org.mozilla.reference.browser.browser
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_browser.*
@@ -62,7 +63,7 @@ class ExternalAppBrowserFragment : BaseBrowserFragment(), UserInteractionHandler
                 requireComponents.core.store,
                 sessionId
             ) { uri ->
-                requireComponents.analytics.crashReporter.submitCaughtException(Exception("Unknown scheme error $uri"))
+                Log.e("Unknown url:",uri.toString())
             },
             owner = this,
             view = view

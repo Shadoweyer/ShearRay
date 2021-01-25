@@ -18,7 +18,6 @@ import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
 import mozilla.components.support.rusthttp.RustHttpConfig
 import mozilla.components.support.rustlog.RustLog
 import mozilla.components.support.webextensions.WebExtensionSupport
-import org.mozilla.reference.browser.ext.isCrashReportActive
 import java.util.concurrent.TimeUnit
 
 open class BrowserApplication : Application() {
@@ -26,9 +25,6 @@ open class BrowserApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        setupCrashReporting(this)
-
         RustHttpConfig.setClient(lazy { components.core.client })
         setupLogging()
 
@@ -98,13 +94,4 @@ private fun setupLogging() {
     // We want the log messages of all builds to go to Android logcat
     Log.addSink(AndroidLogSink())
     RustLog.enable()
-}
-
-private fun setupCrashReporting(application: BrowserApplication) {
-    if (isCrashReportActive) {
-        application
-            .components
-            .analytics
-            .crashReporter.install(application)
-    }
 }

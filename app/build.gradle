@@ -72,9 +72,6 @@ android {
 }
 
 android.applicationVariants.all { variant ->
-    buildConfigField 'String', 'SENTRY_TOKEN', 'null'
-    buildConfigField 'boolean', 'CRASH_REPORTING_ENABLED', 'false'
-    buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'false'
 }
 
 dependencies {
@@ -95,9 +92,9 @@ dependencies {
     implementation Deps.mozilla_browser_session
     implementation Deps.mozilla_browser_session_storage
     implementation Deps.mozilla_browser_state
-    implementation Deps.mozilla_browser_storage_sync
     implementation Deps.mozilla_browser_icons
     implementation Deps.mozilla_browser_thumbnails
+    implementation Deps.mozilla_browser_storage_sync
 
     implementation Deps.mozilla_feature_addons
     implementation Deps.mozilla_feature_app_links
@@ -131,10 +128,6 @@ dependencies {
     implementation Deps.mozilla_support_rustlog
     implementation Deps.mozilla_support_rusthttp
     implementation Deps.mozilla_support_webextensions
-
-    implementation Deps.mozilla_lib_crash
-
-    implementation Deps.thirdparty_sentry
 
     implementation Deps.kotlin_stdlib
     implementation Deps.kotlin_coroutines

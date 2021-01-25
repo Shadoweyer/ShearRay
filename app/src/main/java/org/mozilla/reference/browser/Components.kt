@@ -6,7 +6,6 @@ package org.mozilla.reference.browser
 
 import android.content.Context
 import org.mozilla.reference.browser.components.Core
-import org.mozilla.reference.browser.components.Analytics
 import org.mozilla.reference.browser.components.Services
 import org.mozilla.reference.browser.components.Search
 import org.mozilla.reference.browser.components.Utilities
@@ -28,7 +27,7 @@ class Components(private val context: Context) {
         )
     }
 
-    val analytics by lazy { Analytics(context) }
+    val analytics by lazy {  }
     val utils by lazy {
         Utilities(
             context,
