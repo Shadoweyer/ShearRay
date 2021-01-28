@@ -22,8 +22,7 @@ class Components(private val context: Context) {
             context,
             core.engine,
             core.sessionManager,
-            core.store,
-            core.shortcutManager
+            core.store
         )
     }
 

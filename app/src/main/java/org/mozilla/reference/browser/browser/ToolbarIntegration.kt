@@ -30,7 +30,6 @@ import mozilla.components.concept.menu.candidate.RowMenuCandidate
 import mozilla.components.concept.menu.candidate.SmallMenuCandidate
 import mozilla.components.concept.menu.candidate.TextMenuCandidate
 import mozilla.components.concept.storage.HistoryStorage
-import mozilla.components.feature.pwa.WebAppUseCases
 import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.toolbar.ToolbarAutocompleteFeature
@@ -53,7 +52,6 @@ class ToolbarIntegration(
     store: BrowserStore,
     private val sessionUseCases: SessionUseCases,
     private val tabsUseCases: TabsUseCases,
-    private val webAppUseCases: WebAppUseCases,
     sessionId: String? = null
 ) : LifecycleAwareFeature, UserInteractionHandler {
     private val shippedDomainsProvider = ShippedDomainsProvider().also {
@@ -119,19 +117,6 @@ class ToolbarIntegration(
                 end = CompoundMenuCandidate.ButtonType.SWITCH
             ) { checked ->
                 sessionUseCases.requestDesktopSite.invoke(checked)
-            },
-
-            if (webAppUseCases.isPinningSupported()) {
-                TextMenuCandidate(
-                    text = "Add to homescreen",
-                    containerStyle = ContainerStyle(
-                        isVisible = webAppUseCases.isPinningSupported()
-                    )
-                ) {
-                    scope.launch { webAppUseCases.addToHomescreen() }
-                }
-            } else {
-                null
             },
 
             TextMenuCandidate(

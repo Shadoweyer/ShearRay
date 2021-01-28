@@ -39,12 +39,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".BrowserTestActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-
         <activity android:name=".ExternalAppBrowserActivity"
             android:configChanges="keyboard|keyboardHidden|mcc|mnc|orientation|screenSize|locale|layoutDirection|smallestScreenSize|screenLayout"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
@@ -99,15 +93,6 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="mozilla.components.pwa.category.SHORTCUT" />
-                <data android:scheme="http" />
-                <data android:scheme="https" />
-            </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="http" />
@@ -123,11 +108,6 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
 
-            <intent-filter>
-                <action android:name="mozilla.components.feature.pwa.VIEW_PWA" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="https" />
-            </intent-filter>
         </activity>
 
         <service

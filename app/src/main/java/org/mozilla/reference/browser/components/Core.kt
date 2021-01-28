@@ -29,8 +29,6 @@ import mozilla.components.feature.customtabs.store.CustomTabsServiceStore
 import mozilla.components.feature.downloads.DownloadMiddleware
 import mozilla.components.feature.media.MediaSessionFeature
 import mozilla.components.feature.media.middleware.RecordingDevicesMiddleware
-import mozilla.components.feature.pwa.ManifestStorage
-import mozilla.components.feature.pwa.WebAppShortcutManager
 import mozilla.components.feature.readerview.ReaderViewMiddleware
 import mozilla.components.feature.search.middleware.SearchMiddleware
 import mozilla.components.feature.session.HistoryDelegate
@@ -146,11 +144,6 @@ class Core(private val context: Context) {
      * A storage component for persisting thumbnail images of tabs.
      */
     val thumbnailStorage by lazy { ThumbnailStorage(context) }
-
-    /**
-     * Component for managing shortcuts (both regular and PWA).
-     */
-    val shortcutManager by lazy { WebAppShortcutManager(context, client, ManifestStorage(context)) }
 
     /**
      * A storage component for site permissions.

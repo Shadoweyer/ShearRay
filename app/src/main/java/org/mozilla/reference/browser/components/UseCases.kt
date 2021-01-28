@@ -10,8 +10,6 @@ import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.concept.engine.Engine
 import mozilla.components.feature.contextmenu.ContextMenuUseCases
 import mozilla.components.feature.downloads.DownloadsUseCases
-import mozilla.components.feature.pwa.WebAppShortcutManager
-import mozilla.components.feature.pwa.WebAppUseCases
 import mozilla.components.feature.search.SearchUseCases
 import mozilla.components.feature.search.ext.toDefaultSearchEngineProvider
 import mozilla.components.feature.session.SessionUseCases
@@ -27,8 +25,7 @@ class UseCases(
     private val context: Context,
     private val engine: Engine,
     private val sessionManager: SessionManager,
-    private val store: BrowserStore,
-    private val shortcutManager: WebAppShortcutManager
+    private val store: BrowserStore
 ) {
     /**
      * Use cases that provide engine interactions for a given browser session.
@@ -51,11 +48,6 @@ class UseCases(
      * Use cases that provide settings management.
      */
     val settingsUseCases by lazy { SettingsUseCases(engine, store) }
-
-    /**
-     * Use cases that provide shortcut and progressive web app management.
-     */
-    val webAppUseCases by lazy { WebAppUseCases(context, store, shortcutManager) }
 
     /**
      * Uses cases that provides context menu

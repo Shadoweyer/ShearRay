@@ -109,7 +109,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
                 requireComponents.core.store,
                 requireComponents.useCases.sessionUseCases,
                 requireComponents.useCases.tabsUseCases,
-                requireComponents.useCases.webAppUseCases,
                 sessionId),
             owner = this,
             view = view)
