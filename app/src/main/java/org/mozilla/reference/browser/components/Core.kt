@@ -25,7 +25,6 @@ import mozilla.components.feature.addons.AddonManager
 import mozilla.components.feature.addons.amo.AddonCollectionProvider
 import mozilla.components.feature.addons.update.AddonUpdater
 import mozilla.components.feature.addons.update.DefaultAddonUpdater
-import mozilla.components.feature.customtabs.store.CustomTabsServiceStore
 import mozilla.components.feature.downloads.DownloadMiddleware
 import mozilla.components.feature.media.MediaSessionFeature
 import mozilla.components.feature.media.middleware.RecordingDevicesMiddleware
@@ -95,11 +94,6 @@ class Core(private val context: Context) {
     private fun findSessionById(tabId: String): Session? {
         return sessionManager.findSessionById(tabId)
     }
-
-    /**
-     * The [CustomTabsServiceStore] holds global custom tabs related data.
-     */
-    val customTabsStore by lazy { CustomTabsServiceStore() }
 
     /**
      * The session manager component provides access to a centralized registry of

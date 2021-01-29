@@ -6,7 +6,6 @@ package org.mozilla.reference.browser.components
 
 import android.content.Context
 import mozilla.components.browser.state.store.BrowserStore
-import mozilla.components.feature.customtabs.CustomTabIntentProcessor
 import mozilla.components.feature.intent.processing.TabIntentProcessor
 import mozilla.components.feature.search.SearchUseCases
 import mozilla.components.feature.session.SessionUseCases
@@ -31,7 +30,6 @@ class Utilities(
      */
     val intentProcessors by lazy {
         listOf(
-                CustomTabIntentProcessor(customTabsUseCases.add, context.resources),
                 TabIntentProcessor(tabsUseCases, sessionUseCases.loadUrl, searchUseCases.newTabSearch)
         )
     }
