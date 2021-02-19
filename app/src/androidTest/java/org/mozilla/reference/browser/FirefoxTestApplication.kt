@@ -4,4 +4,6 @@
 
 package org.mozilla.reference.browser
 
+import open.shadoweyer.shearray.BrowserApplication
+
 class FirefoxTestApplication : BrowserApplication()

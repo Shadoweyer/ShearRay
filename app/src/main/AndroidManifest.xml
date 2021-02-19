@@ -4,7 +4,7 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.mozilla.reference.browser">
+    package="open.shadoweyer.shearray">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -23,10 +23,10 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppThemeNotActionBar"
-        android:name=".BrowserApplication"
+        android:name="open.shadoweyer.shearray.BrowserApplication"
         tools:ignore="UnusedAttribute">
 
-        <activity android:name=".BrowserActivity"
+        <activity android:name="open.shadoweyer.shearray.BrowserActivity"
             android:launchMode="singleTask"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
@@ -41,42 +41,42 @@
 
         <activity
             android:theme="@style/Theme.AppCompat.Light"
-            android:name=".addons.AddonsActivity"
+            android:name="open.shadoweyer.shearray.addons.AddonsActivity"
             android:label="@string/mozac_feature_addons_addons"
             android:exported="false"
-            android:parentActivityName=".BrowserActivity" />
+            android:parentActivityName="open.shadoweyer.shearray.BrowserActivity" />
 
         <activity
             android:theme="@style/Theme.AppCompat.Light"
-            android:name=".addons.AddonDetailsActivity"
+            android:name="open.shadoweyer.shearray.addons.AddonDetailsActivity"
             android:exported="false"
             android:label="@string/mozac_feature_addons_addons" />
 
-        <activity android:name=".addons.InstalledAddonDetailsActivity"
+        <activity android:name="open.shadoweyer.shearray.addons.InstalledAddonDetailsActivity"
             android:label="@string/mozac_feature_addons_addons"
-            android:parentActivityName=".addons.AddonsActivity"
+            android:parentActivityName="open.shadoweyer.shearray.addons.AddonsActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light" />
 
         <activity
-            android:name=".addons.PermissionsDetailsActivity"
-            android:label="@string/mozac_feature_addons_addons"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light" />
-
-        <activity
-            android:name=".addons.AddonSettingsActivity"
+            android:name="open.shadoweyer.shearray.addons.PermissionsDetailsActivity"
             android:label="@string/mozac_feature_addons_addons"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light" />
 
         <activity
-            android:name=".addons.WebExtensionActionPopupActivity"
+            android:name="open.shadoweyer.shearray.addons.AddonSettingsActivity"
+            android:label="@string/mozac_feature_addons_addons"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light" />
+
+        <activity
+            android:name="open.shadoweyer.shearray.addons.WebExtensionActionPopupActivity"
             android:label="@string/mozac_feature_addons_addons"
             android:theme="@style/Theme.AppCompat.Light"/>
 
         <activity
-            android:name=".IntentReceiverActivity"
+            android:name="open.shadoweyer.shearray.IntentReceiverActivity"
             android:relinquishTaskIdentity="true"
             android:taskAffinity=""
             android:exported="true"
@@ -101,15 +101,15 @@
 
         </activity>
 
-        <service android:name=".downloads.DownloadService" />
+        <service android:name="open.shadoweyer.shearray.downloads.DownloadService" />
 
         <activity
-          android:name=".settings.SettingsActivity"
+          android:name="open.shadoweyer.shearray.settings.SettingsActivity"
           android:label="@string/settings"
           android:theme="@style/AppTheme"
-          android:parentActivityName=".BrowserActivity" />
+          android:parentActivityName="open.shadoweyer.shearray.BrowserActivity" />
 
-        <service android:name=".media.MediaSessionService"
+        <service android:name="open.shadoweyer.shearray.media.MediaSessionService"
             android:exported="false" />
 
     </application>

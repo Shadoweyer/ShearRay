@@ -8,7 +8,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BrowserActivity"
+    tools:context="open.shadoweyer.shearray.BrowserActivity"
     android:id="@+id/browsermain">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -45,7 +45,7 @@
         mozac:findInPageResultCountTextColor="#ff88ff"
         mozac:findInPageButtonsTint="#ff88ff"
         android:visibility="gone"
-        app:layout_behavior="org.mozilla.reference.browser.browser.FindInPageBarBehavior" />
+        app:layout_behavior="open.shadoweyer.shearray.browser.FindInPageBarBehavior" />
 
     <mozilla.components.browser.toolbar.BrowserToolbar
         android:id="@+id/toolbar"
@@ -78,6 +78,6 @@
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_behavior="org.mozilla.reference.browser.browser.ReaderViewAppearanceButtonBehavior" />
+        app:layout_behavior="open.shadoweyer.shearray.browser.ReaderViewAppearanceButtonBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

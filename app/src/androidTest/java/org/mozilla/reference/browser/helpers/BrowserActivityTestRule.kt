@@ -6,7 +6,7 @@ package org.mozilla.reference.browser.helpers
 
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.rule.ActivityTestRule
-import org.mozilla.reference.browser.BrowserActivity
+import open.shadoweyer.shearray.BrowserActivity
 
 /**
  * A [org.junit.Rule] to handle shared test set up for tests on [BrowserActivity].

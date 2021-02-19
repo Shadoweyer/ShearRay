@@ -6,7 +6,7 @@ package org.mozilla.reference.browser.helpers
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.espresso.IdlingResource
-import org.mozilla.reference.browser.BrowserApplication
+import open.shadoweyer.shearray.BrowserApplication
 
 /**
  * An IdlingResource implementation that waits until the current session is not loading anymore.

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     android:orientation="vertical"
-    tools:context="org.mozilla.reference.browser.bookmark.BookmarkEditFragment">
+    tools:context="open.shadoweyer.shearray.bookmark.BookmarkEditFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
