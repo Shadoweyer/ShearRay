@@ -53,7 +53,6 @@ open class BrowserActivity : AppCompatActivity() {
             }
         }
 
-        NotificationManager.checkAndNotifyPolicy(this)
         lifecycle.addObserver(webExtensionPopupFeature)
     }
 
