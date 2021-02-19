@@ -40,38 +40,7 @@
         </activity>
 
         <activity
-            android:theme="@style/Theme.AppCompat.Light"
-            android:name="open.shadoweyer.shearray.addons.AddonsActivity"
-            android:label="@string/mozac_feature_addons_addons"
-            android:exported="false"
-            android:parentActivityName="open.shadoweyer.shearray.BrowserActivity" />
-
-        <activity
-            android:theme="@style/Theme.AppCompat.Light"
-            android:name="open.shadoweyer.shearray.addons.AddonDetailsActivity"
-            android:exported="false"
-            android:label="@string/mozac_feature_addons_addons" />
-
-        <activity android:name="open.shadoweyer.shearray.addons.InstalledAddonDetailsActivity"
-            android:label="@string/mozac_feature_addons_addons"
-            android:parentActivityName="open.shadoweyer.shearray.addons.AddonsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light" />
-
-        <activity
-            android:name="open.shadoweyer.shearray.addons.PermissionsDetailsActivity"
-            android:label="@string/mozac_feature_addons_addons"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light" />
-
-        <activity
-            android:name="open.shadoweyer.shearray.addons.AddonSettingsActivity"
-            android:label="@string/mozac_feature_addons_addons"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light" />
-
-        <activity
-            android:name="open.shadoweyer.shearray.addons.WebExtensionActionPopupActivity"
+            android:name="open.shadoweyer.shearray.webext.WebExtensionActionPopupActivity"
             android:label="@string/mozac_feature_addons_addons"
             android:theme="@style/Theme.AppCompat.Light"/>
 

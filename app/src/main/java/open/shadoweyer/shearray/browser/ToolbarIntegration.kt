@@ -35,7 +35,6 @@ import mozilla.components.support.base.feature.LifecycleAwareFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import open.shadoweyer.shearray.R
-import open.shadoweyer.shearray.addons.AddonsActivity
 import open.shadoweyer.shearray.bookmark.BookmarkFragment
 import open.shadoweyer.shearray.ext.components
 import open.shadoweyer.shearray.ext.share
@@ -147,25 +146,12 @@ class ToolbarIntegration(
         }
 
         return sessionMenuItems + listOf(
-                TextMenuCandidate(text = "Add-ons") {
-                    val intent = Intent(context, AddonsActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    context.startActivity(intent)
-                },
-
                 TextMenuCandidate(text = "Bookmark") {
                     fragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.fragment_open_enter, R.anim.fragment_open_exit)
                             ?.replace(R.id.container, BookmarkFragment())
                             ?.addToBackStack(null)
                             ?.commit()
                 },
-
-                TextMenuCandidate(text = "Report issue") {
-                    tabsUseCases.addTab(
-                            url = "https://github.com/mozilla-mobile/reference-browser/issues/new"
-                    )
-                },
-
                 TextMenuCandidate(text = "Settings") {
                     val intent = Intent(context, SettingsActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK

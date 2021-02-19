@@ -19,8 +19,7 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupFeature
-import open.shadoweyer.shearray.R
-import open.shadoweyer.shearray.addons.WebExtensionActionPopupActivity
+import open.shadoweyer.shearray.webext.WebExtensionActionPopupActivity
 import open.shadoweyer.shearray.browser.BrowserFragment
 import open.shadoweyer.shearray.ext.components
 
