@@ -31,7 +31,6 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         AwesomeBarFeature(awesomeBar, toolbar, engineView)
             .addSearchProvider(
                 requireContext(),

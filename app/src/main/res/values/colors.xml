@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
+<?xml version="1.0" encoding="utf-8"?><!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <resources xmlns:tools="http://schemas.android.com/tools">
@@ -17,5 +16,10 @@
     <color name="icons">#ffffffff</color>
 
     <!-- Overriding color of tab counter icon in toolbar -->
-    <color name="mozac_ui_tabcounter_default_tint" tools:ignore="UnusedResources">@color/icons</color>
+    <color name="mozac_ui_tabcounter_default_tint" tools:ignore="UnusedResources">@color/icons
+    </color>
+
+    <!-- Bookmark colors -->
+    <color name="bookmark_text_100">#FFE5E3</color>
+    <color name="bookmark_text_0">#AEA9A8</color>
 </resources>

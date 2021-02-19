@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
+<?xml version="1.0" encoding="utf-8"?><!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <resources>
@@ -28,10 +27,8 @@
     <string name="preferences_make_default_browser">Make default browser</string>
 
     <!-- Preference enables sync for history -->
-    <string name="preferences_sync_history">History</string>
 
     <!-- Preference enables sync for synced tabs -->
-    <string name="preferences_sync_tabs">Open tabs</string>
 
     <!-- Preference enabling remote debugging -->
     <string name="preferences_remote_debugging">Remote debugging via USB</string>
@@ -55,25 +52,18 @@
     <string name="firefox_account">Firefox Account</string>
 
     <!-- Preference for signing out -->
-    <string name="sign_out">Sign out</string>
 
     <!-- Preference for syncing immediately -->
-    <string name="sync_now">Sync now</string>
 
     <!-- Preference for syncing immediately -->
-    <string name="syncing">Syncing</string>
 
     <!-- Preference summary indicating that sync failed along with last time it succeeded -->
-    <string name="preferences_sync_failed_summary">Sync failed. Last success: %s</string>
 
     <!-- Preference summary showing never synced -->
-    <string name="preferences_sync_failed_never_synced_summary">Sync failed. Last synced: never</string>
 
     <!-- Preference summary showing last time synced -->
-    <string name="preferences_sync_last_synced_summary">Last synced: %s</string>
 
     <!-- Preference summary showing never synced -->
-    <string name="preferences_sync_never_synced_summary">Last synced: never</string>
 
     <!-- Preference for privacy -->
     <string name="privacy">Privacy</string>
@@ -82,7 +72,6 @@
     <string name="preferences_privacy_summary">Tracking, cookies, data choices</string>
 
     <!-- Preference category for sync settings -->
-    <string name="sync_category">Choose what to sync</string>
 
     <!-- Preference for open links in apps -->
     <string name="open_links_in_apps">Open links in apps</string>
@@ -106,23 +95,17 @@
     <string name="settings">Settings</string>
 
     <!-- Menu option on the toolbar that takes you to synced tabs page-->
-    <string name="synced_tabs">Synced Tabs</string>
 
     <!-- Menu option on the toolbar that takes you to account settings page-->
-    <string name="account_settings">Account Settings</string>
 
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <string name="privacy_settings">Privacy Settings</string>
 
     <!-- Menu option on the toolbar that takes you to pairing QR code page-->
-    <string name="pair_preferences">Pairing</string>
-    <string name="pair_instructions">Open firefox.com/pair in Firefox Desktop for your pairing code</string>
 
     <!-- Snackbar message when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_message">Sorry. We crashed</string>
 
     <!-- Snackbar action button when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_action">Report</string>
 
     <!-- Private Browsing -->
     <string name="private_browsing_title">Private Browsing</string>
@@ -144,7 +127,7 @@
 
     <!-- Summary of the notification shown on app startup informing about the data policy -->
     <string name="datareporting_notification_summary">To improve your experience, Reference Browser automatically sends some information to Mozilla.</string>
-    
+
     <string name="default_notification_channel">Browser</string>
 
     <!-- About content -->
@@ -172,10 +155,6 @@
     <string name="fxa_tab_received_from_notification_name">Tab from %s</string>
 
     <!-- Synced Tabs -->
-    <string name="synced_tabs_connect_to_sync_account">Connect with a Firefox Account.</string>
-    <string name="synced_tabs_connect_another_device">Connect another device.</string>
-    <string name="synced_tabs_reauth">Please re-authenticate.</string>
-    <string name="synced_tabs_enable_tab_syncing">Please enable tab syncing.</string>
 
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
@@ -190,4 +169,21 @@
     <string name="customize_addon_collection_user_hint">Collection owner (User ID)</string>
     <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">Add-on collection modified. Quitting the application to apply changes…</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bookmark_menu_edit_button">Edit</string>
+    <string name="bookmark_menu_open_in_new_tab_button">Open</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Private</string>
+    <string name="bookmark_menu_delete_button">Delete</string>
+    <string name="content_description_menu">option</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
 </resources>

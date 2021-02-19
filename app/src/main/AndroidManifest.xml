@@ -39,15 +39,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ExternalAppBrowserActivity"
-            android:configChanges="keyboard|keyboardHidden|mcc|mnc|orientation|screenSize|locale|layoutDirection|smallestScreenSize|screenLayout"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
-            android:exported="false"
-            android:taskAffinity=""
-            android:persistableMode="persistNever"
-            android:autoRemoveFromRecents="false"
-            android:label="@string/app_name" />
-
         <activity
             android:theme="@style/Theme.AppCompat.Light"
             android:name=".addons.AddonsActivity"
@@ -109,15 +100,6 @@
             </intent-filter>
 
         </activity>
-
-        <service
-            android:name=".customtabs.CustomTabsService"
-            android:exported="true"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="android.support.customtabs.action.CustomTabsService" />
-            </intent-filter>
-        </service>
 
         <service android:name=".downloads.DownloadService" />
 

@@ -11,4 +11,5 @@
     <declare-styleable name="ToggleImageButton">
         <attr name="android:checked" />
     </declare-styleable>
+    <attr name="destructive" />
 </resources>

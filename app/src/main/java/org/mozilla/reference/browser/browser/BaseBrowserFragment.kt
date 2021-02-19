@@ -24,8 +24,8 @@ import mozilla.components.feature.prompts.PromptFeature
 import mozilla.components.feature.session.FullScreenFeature
 import mozilla.components.feature.session.SessionFeature
 import mozilla.components.feature.session.SwipeRefreshFeature
-import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.sitepermissions.SitePermissionsFeature
+import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
@@ -60,18 +60,16 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
     private val pictureInPictureIntegration = ViewBoundFeatureWrapper<PictureInPictureIntegration>()
     private val swipeRefreshFeature = ViewBoundFeatureWrapper<SwipeRefreshFeature>()
     private val windowFeature = ViewBoundFeatureWrapper<WindowFeature>()
-    private val webAuthnFeature = ViewBoundFeatureWrapper<WebAuthnFeature>()
 
     private val backButtonHandler: List<ViewBoundFeatureWrapper<*>> = listOf(
-        fullScreenFeature,
-        findInPageIntegration,
-        toolbarIntegration,
-        sessionFeature
+            fullScreenFeature,
+            findInPageIntegration,
+            toolbarIntegration,
+            sessionFeature
     )
 
     private val activityResultHandler: List<ViewBoundFeatureWrapper<*>> = listOf(
-        webAuthnFeature,
-        promptsFeature
+            promptsFeature
     )
 
     protected val sessionId: String?
@@ -80,9 +78,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
     protected var webAppToolbarShouldBeVisible = true
 
     final override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         return inflater.inflate(R.layout.fragment_browser, container, false)
     }
@@ -92,150 +90,143 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         sessionFeature.set(
-            feature = SessionFeature(
-                requireComponents.core.store,
-                requireComponents.useCases.sessionUseCases.goBack,
-                engineView,
-                sessionId),
-            owner = this,
-            view = view)
+                feature = SessionFeature(
+                        requireComponents.core.store,
+                        requireComponents.useCases.sessionUseCases.goBack,
+                        engineView,
+                        sessionId),
+                owner = this,
+                view = view)
 
         toolbarIntegration.set(
-            feature = ToolbarIntegration(
-                requireContext(),
-                toolbar,
-                requireComponents.core.historyStorage,
-                requireComponents.core.sessionManager,
-                requireComponents.core.store,
-                requireComponents.useCases.sessionUseCases,
-                requireComponents.useCases.tabsUseCases,
-                sessionId),
-            owner = this,
-            view = view)
+                feature = ToolbarIntegration(
+                        requireContext(),
+                        toolbar,
+                        requireComponents.core.historyStorage,
+                        requireComponents.core.sessionManager,
+                        requireComponents.core.store,
+                        requireComponents.useCases.sessionUseCases,
+                        requireComponents.useCases.tabsUseCases,
+                        sessionId,
+                        activity?.supportFragmentManager
+                ),
+                owner = this,
+                view = view)
 
         contextMenuIntegration.set(
-            feature = ContextMenuIntegration(
-                requireContext(),
-                requireFragmentManager(),
-                requireComponents.core.store,
-                requireComponents.useCases.tabsUseCases,
-                requireComponents.useCases.contextMenuUseCases,
-                view,
-                sessionId),
-            owner = this,
-            view = view)
+                feature = ContextMenuIntegration(
+                        requireContext(),
+                        requireFragmentManager(),
+                        requireComponents.core.store,
+                        requireComponents.useCases.tabsUseCases,
+                        requireComponents.useCases.contextMenuUseCases,
+                        view,
+                        sessionId),
+                owner = this,
+                view = view)
 
         downloadsFeature.set(
-            feature = DownloadsFeature(
-                requireContext(),
-                store = requireComponents.core.store,
-                useCases = requireComponents.useCases.downloadsUseCases,
-                fragmentManager = childFragmentManager,
-                downloadManager = FetchDownloadManager(
-                    requireContext().applicationContext,
-                    requireComponents.core.store,
-                    DownloadService::class
-                ),
-                onNeedToRequestPermissions = { permissions ->
-                    requestPermissions(permissions, REQUEST_CODE_DOWNLOAD_PERMISSIONS)
-                }),
-            owner = this,
-            view = view)
+                feature = DownloadsFeature(
+                        requireContext(),
+                        store = requireComponents.core.store,
+                        useCases = requireComponents.useCases.downloadsUseCases,
+                        fragmentManager = childFragmentManager,
+                        downloadManager = FetchDownloadManager(
+                                requireContext().applicationContext,
+                                requireComponents.core.store,
+                                DownloadService::class
+                        ),
+                        onNeedToRequestPermissions = { permissions ->
+                            requestPermissions(permissions, REQUEST_CODE_DOWNLOAD_PERMISSIONS)
+                        }),
+                owner = this,
+                view = view)
 
         appLinksFeature.set(
-            feature = AppLinksFeature(
-                requireContext(),
-                store = requireComponents.core.store,
-                sessionId = sessionId,
-                fragmentManager = requireFragmentManager(),
-                launchInApp = {
-                    prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_launch_external_app), false)
-                }
-            ),
-            owner = this,
-            view = view
+                feature = AppLinksFeature(
+                        requireContext(),
+                        store = requireComponents.core.store,
+                        sessionId = sessionId,
+                        fragmentManager = requireFragmentManager(),
+                        launchInApp = {
+                            prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_launch_external_app), false)
+                        }
+                ),
+                owner = this,
+                view = view
         )
 
         promptsFeature.set(
-            feature = PromptFeature(
-                fragment = this,
-                store = requireComponents.core.store,
-                customTabId = sessionId,
-                fragmentManager = requireFragmentManager(),
-                onNeedToRequestPermissions = { permissions ->
-                    requestPermissions(permissions, REQUEST_CODE_PROMPT_PERMISSIONS)
-                }),
-            owner = this,
-            view = view)
+                feature = PromptFeature(
+                        fragment = this,
+                        store = requireComponents.core.store,
+                        customTabId = sessionId,
+                        fragmentManager = requireFragmentManager(),
+                        onNeedToRequestPermissions = { permissions ->
+                            requestPermissions(permissions, REQUEST_CODE_PROMPT_PERMISSIONS)
+                        }),
+                owner = this,
+                view = view)
 
         windowFeature.set(
-            feature = WindowFeature(requireComponents.core.store, requireComponents.useCases.tabsUseCases),
-            owner = this,
-            view = view
+                feature = WindowFeature(requireComponents.core.store, requireComponents.useCases.tabsUseCases),
+                owner = this,
+                view = view
         )
 
         fullScreenFeature.set(
-            feature = FullScreenFeature(
-                store = requireComponents.core.store,
-                sessionUseCases = requireComponents.useCases.sessionUseCases,
-                tabId = sessionId,
-                viewportFitChanged = ::viewportFitChanged,
-                fullScreenChanged = ::fullScreenChanged
-            ),
-            owner = this,
-            view = view)
+                feature = FullScreenFeature(
+                        store = requireComponents.core.store,
+                        sessionUseCases = requireComponents.useCases.sessionUseCases,
+                        tabId = sessionId,
+                        viewportFitChanged = ::viewportFitChanged,
+                        fullScreenChanged = ::fullScreenChanged
+                ),
+                owner = this,
+                view = view)
 
         findInPageIntegration.set(
-            feature = FindInPageIntegration(
-                requireComponents.core.store,
-                sessionId,
-                findInPageBar as FindInPageView,
-                engineView),
-            owner = this,
-            view = view)
+                feature = FindInPageIntegration(
+                        requireComponents.core.store,
+                        sessionId,
+                        findInPageBar as FindInPageView,
+                        engineView),
+                owner = this,
+                view = view)
 
         sitePermissionFeature.set(
-            feature = SitePermissionsFeature(
-                context = requireContext(),
-                fragmentManager = requireFragmentManager(),
-                sessionId = sessionId,
-                storage = requireComponents.core.sitePermissionsStorage,
-                onNeedToRequestPermissions = { permissions ->
-                    requestPermissions(permissions, REQUEST_CODE_APP_PERMISSIONS)
-                },
-                onShouldShowRequestPermissionRationale = { shouldShowRequestPermissionRationale(it) },
-                store = requireComponents.core.store),
-            owner = this,
-            view = view
+                feature = SitePermissionsFeature(
+                        context = requireContext(),
+                        fragmentManager = requireFragmentManager(),
+                        sessionId = sessionId,
+                        storage = requireComponents.core.sitePermissionsStorage,
+                        onNeedToRequestPermissions = { permissions ->
+                            requestPermissions(permissions, REQUEST_CODE_APP_PERMISSIONS)
+                        },
+                        onShouldShowRequestPermissionRationale = { shouldShowRequestPermissionRationale(it) },
+                        store = requireComponents.core.store),
+                owner = this,
+                view = view
         )
 
         pictureInPictureIntegration.set(
-            feature = PictureInPictureIntegration(
-                requireComponents.core.store,
-                requireActivity(),
-                sessionId
-            ),
-            owner = this,
-            view = view
+                feature = PictureInPictureIntegration(
+                        requireComponents.core.store,
+                        requireActivity(),
+                        sessionId
+                ),
+                owner = this,
+                view = view
         )
 
         swipeRefreshFeature.set(
-            feature = SwipeRefreshFeature(
-                requireComponents.core.store,
-                requireComponents.useCases.sessionUseCases.reload,
-                view.swipeRefresh
-            ),
-            owner = this,
-            view = view
-        )
-
-        webAuthnFeature.set(
-            feature = WebAuthnFeature(
-                requireComponents.core.engine,
-                requireActivity()
-            ),
-            owner = this,
-            view = view
+                feature = SwipeRefreshFeature(
+                        requireComponents.core.store,
+                        requireComponents.useCases.sessionUseCases.reload,
+                        view.swipeRefresh
+                ),
+                owner = this,
+                view = view
         )
     }
 
@@ -277,9 +268,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
     }
 
     final override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
+            requestCode: Int,
+            permissions: Array<String>,
+            grantResults: IntArray
     ) {
         val feature: PermissionsFeature? = when (requestCode) {
             REQUEST_CODE_DOWNLOAD_PERMISSIONS -> downloadsFeature.get()
@@ -301,7 +292,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
 
     final override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Logger.info("Fragment onActivityResult received with " +
-            "requestCode: $requestCode, resultCode: $resultCode, data: $data")
+                "requestCode: $requestCode, resultCode: $resultCode, data: $data")
 
         activityResultHandler.any { it.onActivityResult(requestCode, resultCode, data) }
     }

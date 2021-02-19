@@ -45,22 +45,24 @@ open class BrowserApplication : Application() {
                 components.core.addonUpdater
         )
         WebExtensionSupport.initialize(
-            runtime = components.core.engine,
-            store = components.core.store,
-            onNewTabOverride = { _, engineSession, url ->
-                val session = Session(url)
-                components.core.sessionManager.add(session, true, engineSession)
-                session.id
-            },
-            onCloseTabOverride = { _, sessionId ->
-                components.useCases.tabsUseCases.removeTab(sessionId)
-            },
-            onSelectTabOverride = { _, sessionId ->
-                val selected = components.core.sessionManager.findSessionById(sessionId)
-                selected?.let { components.useCases.tabsUseCases.selectTab(it) }
-            },
-            onUpdatePermissionRequest = components.core.addonUpdater::onUpdatePermissionRequest
+                runtime = components.core.engine,
+                store = components.core.store,
+                onNewTabOverride = { _, engineSession, url ->
+                    val session = Session(url)
+                    components.core.sessionManager.add(session, true, engineSession)
+                    session.id
+                },
+                onCloseTabOverride = { _, sessionId ->
+                    components.useCases.tabsUseCases.removeTab(sessionId)
+                },
+                onSelectTabOverride = { _, sessionId ->
+                    val selected = components.core.sessionManager.findSessionById(sessionId)
+                    selected?.let { components.useCases.tabsUseCases.selectTab(it) }
+                },
+                onUpdatePermissionRequest = components.core.addonUpdater::onUpdatePermissionRequest
         )
+        components.bookmarkMediator.warmUp()
+
     }
 
     override fun onTrimMemory(level: Int) {
@@ -80,9 +82,9 @@ open class BrowserApplication : Application() {
         // Now that we have restored our previous state (if there's one) let's setup auto saving the state while
         // the app is used.
         sessionStorage.autoSave(store)
-            .periodicallyInForeground(interval = 30, unit = TimeUnit.SECONDS)
-            .whenGoingToBackground()
-            .whenSessionsChange()
+                .periodicallyInForeground(interval = 30, unit = TimeUnit.SECONDS)
+                .whenGoingToBackground()
+                .whenSessionsChange()
     }
 
     companion object {
