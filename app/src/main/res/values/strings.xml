@@ -21,7 +21,6 @@
     <string name="preferences_pair_sign_in_summary">Pair with Firefox Desktop</string>
 
     <!-- Preference summary for settings related to send telemetry data -->
-    <string name="preferences_use_telemetry_summary">Send usage data</string>
 
     <!-- Preference for settings related to changing the default browser -->
     <string name="preferences_make_default_browser">Make default browser</string>
@@ -49,7 +48,6 @@
     <string name="pair_sign_in">Sign in with a QR code</string>
 
     <!-- Preference for settings related to the signed in Firefox Account -->
-    <string name="firefox_account">Firefox Account</string>
 
     <!-- Preference for signing out -->
 
@@ -80,16 +78,13 @@
     <string name="developer_tools_category">Developer tools</string>
 
     <!-- Preference for settings related turn on telemetry data-->
-    <string name="use_telemetry">Use Telemetry</string>
 
     <!-- Preference category for Mozilla about/legal etc. -->
     <string name="mozilla_category">Mozilla</string>
 
     <!-- Preference category for tracking protection -->
-    <string name="tracker_category">Tracking Protection</string>
 
     <!-- Preference category for data choices e.g. usage data -->
-    <string name="data_choices_category">Data Choices</string>
 
     <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">Settings</string>
@@ -114,12 +109,8 @@
      ]]></string>
 
     <!-- About content -->
-    <string name="about_content"><![CDATA[
-<p>%1$s puts you in control.</p>
-    ]]></string>
 
     <string name="menu_share_with">Share with…</string>
-    <string name="toast_copied">Copied!</string>
 
     <!-- Send Tab -->
     <!-- Name of the "receive tabs" notification channel. Displayed in the "App notifications" system settings for the app -->
@@ -131,23 +122,18 @@
 
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
-    <string name="preferences_customize_amo_collection">Custom Add-on collection</string>
     <!-- Button caption to confirm the add-on collection configuration -->
-    <string name="customize_addon_collection_ok">OK</string>
     <!-- Button caption to abort the add-on collection configuration -->
-    <string name="customize_addon_collection_cancel">Cancel</string>
     <!-- Hint displayed on input field for custom collection name -->
-    <string name="customize_addon_collection_hint">Collection name</string>
     <!-- Hint displayed on input field for custom collection user ID-->
-    <string name="customize_addon_collection_user_hint">Collection owner (User ID)</string>
     <!-- Toast shown after confirming the custom add-on collection configuration -->
-    <string name="toast_customize_addon_collection_done">Add-on collection modified. Quitting the application to apply changes…</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="bookmark_menu_edit_button">Edit</string>
     <string name="bookmark_menu_open_in_new_tab_button">Open</string>
     <string name="bookmark_menu_open_in_private_tab_button">Private</string>
     <string name="bookmark_menu_delete_button">Delete</string>
     <string name="content_description_menu">option</string>
+    <string name="about_content_slogan">Browser starts to crawl.</string>
     <!-- Strings related to login -->
 
 </resources>

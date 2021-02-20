@@ -43,7 +43,6 @@
         app:layout_constraintEnd_toStartOf="@id/overflow_menu"
         app:layout_constraintStart_toEndOf="@id/favicon"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_goneMarginEnd="@dimen/add_on_name_container_margin_bottom"
         tools:text="https://example.com/" />
 
     <TextView

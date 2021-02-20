@@ -6,7 +6,7 @@ package open.shadoweyer.shearray.components
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import mozilla.components.browser.icons.BrowserIcons
 import mozilla.components.browser.session.Session
 import mozilla.components.browser.session.SessionManager
@@ -21,10 +21,6 @@ import mozilla.components.concept.engine.DefaultSettings
 import mozilla.components.concept.engine.Engine
 import mozilla.components.concept.engine.EngineSession.TrackingProtectionPolicy
 import mozilla.components.concept.fetch.Client
-import mozilla.components.feature.addons.AddonManager
-import mozilla.components.feature.addons.amo.AddonCollectionProvider
-import mozilla.components.feature.addons.update.AddonUpdater
-import mozilla.components.feature.addons.update.DefaultAddonUpdater
 import mozilla.components.feature.downloads.DownloadMiddleware
 import mozilla.components.feature.media.MediaSessionFeature
 import mozilla.components.feature.media.middleware.RecordingDevicesMiddleware
@@ -43,8 +39,6 @@ import open.shadoweyer.shearray.R.string.pref_key_tracking_protection_normal
 import open.shadoweyer.shearray.R.string.pref_key_tracking_protection_private
 import open.shadoweyer.shearray.downloads.DownloadService
 import open.shadoweyer.shearray.media.MediaSessionService
-import open.shadoweyer.shearray.settings.Settings
-import java.util.concurrent.TimeUnit
 
 private const val DAY_IN_MINUTES = 24 * 60L
 
@@ -148,41 +142,6 @@ class Core(private val context: Context) {
      * Icons component for loading, caching and processing website icons.
      */
     val icons by lazy { BrowserIcons(context, client) }
-
-    // Addons
-    val addonManager by lazy {
-        AddonManager(store, engine, addonCollectionProvider, addonUpdater)
-    }
-
-    val addonUpdater by lazy {
-        DefaultAddonUpdater(context, AddonUpdater.Frequency(1, TimeUnit.DAYS))
-    }
-
-    val addonCollectionProvider by lazy {
-        if (Settings.isAmoCollectionOverrideConfigured(context)) {
-            provideCustomAddonCollectionProvider()
-        } else {
-            provideDefaultAddonCollectionProvider()
-        }
-    }
-
-    private fun provideDefaultAddonCollectionProvider(): AddonCollectionProvider {
-        return AddonCollectionProvider(
-            context = context,
-            client = client,
-            collectionName = "7dfae8669acc4312a65e8ba5553036",
-            maxCacheAgeInMinutes = DAY_IN_MINUTES
-        )
-    }
-
-    private fun provideCustomAddonCollectionProvider(): AddonCollectionProvider {
-        return AddonCollectionProvider(
-            context,
-            client,
-            collectionUser = Settings.getOverrideAmoUser(context),
-            collectionName = Settings.getOverrideAmoCollection(context)
-        )
-    }
 
     /**
      * Constructs a [TrackingProtectionPolicy] based on current preferences.

@@ -23,18 +23,6 @@ class Components(private val context: Context) {
         )
     }
 
-    val analytics by lazy {  }
-    val utils by lazy {
-        Utilities(
-                context,
-                core.store,
-                useCases.sessionUseCases,
-                useCases.searchUseCases,
-                useCases.tabsUseCases,
-                useCases.customTabsUseCases
-        )
-    }
-    val services by lazy { Services(context, useCases.tabsUseCases) }
     val bookmarkMediator by lazy { BookmarkMediator(context) }
 
 }

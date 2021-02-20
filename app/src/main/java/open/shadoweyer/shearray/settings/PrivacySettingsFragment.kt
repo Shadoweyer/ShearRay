@@ -17,11 +17,9 @@ class PrivacySettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.privacy_preferences, rootKey)
 
-        val telemetryKey = context?.getPreferenceKey(R.string.pref_key_telemetry)
         val trackingProtectionNormalKey = context?.getPreferenceKey(R.string.pref_key_tracking_protection_normal)
         val trackingProtectionPrivateKey = context?.getPreferenceKey(R.string.pref_key_tracking_protection_private)
 
-        val prefTelemetry = findPreference(telemetryKey)
         val prefTrackingProtectionNormal = findPreference(trackingProtectionNormalKey)
         val prefTrackingProtectionPrivate = findPreference(trackingProtectionPrivateKey)
 

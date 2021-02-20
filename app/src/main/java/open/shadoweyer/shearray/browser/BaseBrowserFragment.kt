@@ -16,7 +16,6 @@ import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.fragment_browser.*
 import kotlinx.android.synthetic.main.fragment_browser.view.*
 import mozilla.components.browser.state.selector.selectedTab
-import mozilla.components.feature.app.links.AppLinksFeature
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.feature.findinpage.view.FindInPageView
@@ -52,7 +51,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
     private val toolbarIntegration = ViewBoundFeatureWrapper<ToolbarIntegration>()
     private val contextMenuIntegration = ViewBoundFeatureWrapper<ContextMenuIntegration>()
     private val downloadsFeature = ViewBoundFeatureWrapper<DownloadsFeature>()
-    private val appLinksFeature = ViewBoundFeatureWrapper<AppLinksFeature>()
     private val promptsFeature = ViewBoundFeatureWrapper<PromptFeature>()
     private val fullScreenFeature = ViewBoundFeatureWrapper<FullScreenFeature>()
     private val findInPageIntegration = ViewBoundFeatureWrapper<FindInPageIntegration>()
@@ -116,7 +114,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
         contextMenuIntegration.set(
                 feature = ContextMenuIntegration(
                         requireContext(),
-                        requireFragmentManager(),
+                        parentFragmentManager,
                         requireComponents.core.store,
                         requireComponents.useCases.tabsUseCases,
                         requireComponents.useCases.contextMenuUseCases,
@@ -142,26 +140,12 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
                 owner = this,
                 view = view)
 
-        appLinksFeature.set(
-                feature = AppLinksFeature(
-                        requireContext(),
-                        store = requireComponents.core.store,
-                        sessionId = sessionId,
-                        fragmentManager = requireFragmentManager(),
-                        launchInApp = {
-                            prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_launch_external_app), false)
-                        }
-                ),
-                owner = this,
-                view = view
-        )
-
         promptsFeature.set(
                 feature = PromptFeature(
                         fragment = this,
                         store = requireComponents.core.store,
                         customTabId = sessionId,
-                        fragmentManager = requireFragmentManager(),
+                        fragmentManager = parentFragmentManager,
                         onNeedToRequestPermissions = { permissions ->
                             requestPermissions(permissions, REQUEST_CODE_PROMPT_PERMISSIONS)
                         }),
@@ -197,7 +181,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
         sitePermissionFeature.set(
                 feature = SitePermissionsFeature(
                         context = requireContext(),
-                        fragmentManager = requireFragmentManager(),
+                        fragmentManager = parentFragmentManager,
                         sessionId = sessionId,
                         storage = requireComponents.core.sitePermissionsStorage,
                         onNeedToRequestPermissions = { permissions ->

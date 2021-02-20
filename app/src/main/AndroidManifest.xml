@@ -40,11 +40,6 @@
         </activity>
 
         <activity
-            android:name="open.shadoweyer.shearray.webext.WebExtensionActionPopupActivity"
-            android:label="@string/mozac_feature_addons_addons"
-            android:theme="@style/Theme.AppCompat.Light"/>
-
-        <activity
             android:name="open.shadoweyer.shearray.IntentReceiverActivity"
             android:relinquishTaskIdentity="true"
             android:taskAffinity=""

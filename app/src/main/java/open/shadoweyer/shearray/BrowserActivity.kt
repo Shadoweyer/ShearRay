@@ -18,8 +18,6 @@ import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
-import mozilla.components.support.webextensions.WebExtensionPopupFeature
-import open.shadoweyer.shearray.webext.WebExtensionActionPopupActivity
 import open.shadoweyer.shearray.browser.BrowserFragment
 import open.shadoweyer.shearray.ext.components
 
@@ -30,10 +28,6 @@ open class BrowserActivity : AppCompatActivity() {
 
     private val sessionId: String?
         get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
-
-    private val webExtensionPopupFeature by lazy {
-        WebExtensionPopupFeature(components.core.store, ::openPopup)
-    }
 
     /**
      * Returns a new instance of [BrowserFragment] to display.
@@ -51,8 +45,6 @@ open class BrowserActivity : AppCompatActivity() {
                 commit()
             }
         }
-
-        lifecycle.addObserver(webExtensionPopupFeature)
     }
 
     override fun onBackPressed() {
@@ -111,13 +103,5 @@ open class BrowserActivity : AppCompatActivity() {
             "requestCode: $requestCode, resultCode: $resultCode, data: $data")
 
         super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    private fun openPopup(webExtensionState: WebExtensionState) {
-        val intent = Intent(this, WebExtensionActionPopupActivity::class.java)
-        intent.putExtra("web_extension_id", webExtensionState.id)
-        intent.putExtra("web_extension_name", webExtensionState.name)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
     }
 }

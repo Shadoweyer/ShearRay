@@ -28,13 +28,7 @@ class AppRequestInterceptor(private val context: Context) : RequestInterceptor {
                 val page = PrivatePage.createPrivateBrowsingPage(context, uri)
                 RequestInterceptor.InterceptionResponse.Content(page, encoding = "base64")
             }
-
-            else -> {
-                context.components.services.appLinksInterceptor.onLoadRequest(
-                    engineSession, uri, lastUri, hasUserGesture, isSameDomain, isRedirect, isDirectNavigation,
-                    isSubframeRequest
-                )
-            }
+            else -> null
         }
     }
 
