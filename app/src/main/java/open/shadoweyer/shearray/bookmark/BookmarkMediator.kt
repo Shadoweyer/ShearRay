@@ -40,7 +40,7 @@ class BookmarkMediator(private val context: Context) {
 
     fun edit(item: BookmarkNode, callback: suspend () -> Unit) {
         frag?.parentFragmentManager?.beginTransaction()
-                ?.replace(R.id.container, BookmarkEditFragment(item) {
+                ?.replace(R.id.top_container, BookmarkEditFragment(item) {
                     mScope.launch {
                         storage.updateNode(item.guid, it)
                         val testNodes = storage.getBookmarkByParent(LocalBookmarksStorage.BOOKMARK_ROOT_ID)

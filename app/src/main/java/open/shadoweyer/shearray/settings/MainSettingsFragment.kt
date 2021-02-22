@@ -14,11 +14,7 @@ import open.shadoweyer.shearray.ext.getPreferenceKey
 import open.shadoweyer.shearray.ext.requireComponents
 
 @Suppress("TooManyFunctions")
-class SettingsFragment : PreferenceFragmentCompat() {
-
-    interface ActionBarUpdater {
-        fun updateTitle(titleResId: Int)
-    }
+class MainSettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -26,11 +22,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onResume() {
         super.onResume()
-
         setupPreferences()
-        getActionBarUpdater().apply {
-            updateTitle(R.string.settings)
-        }
+        (parentFragment as SettingContainerFragment).updateTitle(getString(R.string.setting_main_title))
     }
 
     @Suppress("LongMethod") // Yep, this should be refactored.
@@ -46,17 +39,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceRemoteDebugging.onPreferenceChangeListener = getChangeListenerForRemoteDebugging()
         preferenceAboutPage.onPreferenceClickListener = getAboutPageListener()
         preferencePrivacy.onPreferenceClickListener = getClickListenerForPrivacy()
+
     }
 
     private fun getClickListenerForPrivacy(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             parentFragmentManager.beginTransaction()
-                    .replace(android.R.id.content, PrivacySettingsFragment())
+                    .replace(R.id.setting_root, PrivacySettingsFragment())
                     .addToBackStack(null)
                     .commit()
-            getActionBarUpdater().apply {
-                updateTitle(R.string.privacy_settings)
-            }
+//            getActionBarUpdater().apply {
+//                updateTitle(R.string.privacy_settings)
+//            }
             true
         }
     }
@@ -71,13 +65,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getAboutPageListener(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             parentFragmentManager.beginTransaction()
-                    .replace(android.R.id.content, AboutFragment())
+                    .replace(R.id.setting_root, AboutFragment())
                     .addToBackStack(null)
                     .commit()
             true
         }
     }
-
-    private fun getActionBarUpdater() = activity as ActionBarUpdater
-
 }

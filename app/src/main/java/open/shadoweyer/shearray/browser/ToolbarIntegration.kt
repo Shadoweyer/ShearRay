@@ -5,7 +5,6 @@
 package open.shadoweyer.shearray.browser
 
 import android.content.Context
-import android.content.Intent
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentManager
@@ -38,7 +37,7 @@ import open.shadoweyer.shearray.R
 import open.shadoweyer.shearray.bookmark.BookmarkFragment
 import open.shadoweyer.shearray.ext.components
 import open.shadoweyer.shearray.ext.share
-import open.shadoweyer.shearray.settings.SettingsActivity
+import open.shadoweyer.shearray.settings.SettingContainerFragment
 
 class ToolbarIntegration(
         private val context: Context,
@@ -148,14 +147,18 @@ class ToolbarIntegration(
         return sessionMenuItems + listOf(
                 TextMenuCandidate(text = "Bookmark") {
                     fragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.fragment_open_enter, R.anim.fragment_open_exit)
-                            ?.replace(R.id.container, BookmarkFragment())
+                            ?.replace(R.id.top_container, BookmarkFragment())
                             ?.addToBackStack(null)
                             ?.commit()
                 },
                 TextMenuCandidate(text = "Settings") {
-                    val intent = Intent(context, SettingsActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    context.startActivity(intent)
+//                    val intent = Intent(context, SettingsActivity::class.java)
+//                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                    context.startActivity(intent)
+                    fragmentManager?.beginTransaction()
+                            ?.replace(R.id.top_container, SettingContainerFragment())
+                            ?.addToBackStack(null)
+                            ?.commit()
                 }
         )
     }

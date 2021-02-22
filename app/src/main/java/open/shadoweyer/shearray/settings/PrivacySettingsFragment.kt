@@ -31,6 +31,12 @@ class PrivacySettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        (parentFragment as SettingContainerFragment).updateTitle(getString(R.string.setting_main_privacy))
+
+    }
+
     private fun getChangeListenerForTrackingProtection(
         createTrackingProtectionPolicy: (Boolean) -> TrackingProtectionPolicy
     ): OnPreferenceChangeListener {

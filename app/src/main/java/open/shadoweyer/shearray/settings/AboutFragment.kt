@@ -33,4 +33,10 @@ class AboutFragment : Fragment() {
         version_info.text = geckoVersion
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        (parentFragment as SettingContainerFragment).updateTitle(getString(R.string.setting_main_about))
+
+    }
 }

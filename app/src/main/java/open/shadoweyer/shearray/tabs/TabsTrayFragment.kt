@@ -73,7 +73,7 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
 
     private fun closeTabsTray() {
         activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.container, BrowserFragment.create())
+            remove(this@TabsTrayFragment)
             commit()
         }
     }

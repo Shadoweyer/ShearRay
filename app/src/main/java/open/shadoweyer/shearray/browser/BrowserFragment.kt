@@ -95,7 +95,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         // For now we are performing manual fragment transactions here. Once we can use the new
         // navigation support library we may want to pass navigation graphs around.
         activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.container, TabsTrayFragment())
+            replace(R.id.top_container, TabsTrayFragment())
             commit()
         }
     }
