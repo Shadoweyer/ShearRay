@@ -11,6 +11,8 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.*
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.WebExtensionState
 import mozilla.components.concept.engine.EngineView
@@ -33,12 +35,13 @@ open class BrowserActivity : AppCompatActivity() {
      * Returns a new instance of [BrowserFragment] to display.
      */
     open fun createBrowserFragment(sessionId: String?): Fragment =
-        BrowserFragment.create(sessionId)
+            BrowserFragment.create(sessionId)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        print(intent)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.container, createBrowserFragment(sessionId))
@@ -93,15 +96,22 @@ open class BrowserActivity : AppCompatActivity() {
     }
 
     override fun onCreateView(parent: View?, name: String, context: Context, attrs: AttributeSet): View? =
-        when (name) {
-            EngineView::class.java.name -> components.core.engine.createView(context, attrs).asView()
-            else -> super.onCreateView(parent, name, context, attrs)
+            when (name) {
+                EngineView::class.java.name -> components.core.engine.createView(context, attrs).asView()
+                else -> super.onCreateView(parent, name, context, attrs)
+            }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.data?.let {
+            val content = contentResolver.openInputStream(it)?.reader()
+            if (content != null) {
+                applicationContext.components.bookmarkMediator.importBookmarkFromExternalIntent(content,this)
+            }
         }
+    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Logger.info("Activity onActivityResult received with " +
-            "requestCode: $requestCode, resultCode: $resultCode, data: $data")
-
-        super.onActivityResult(requestCode, resultCode, data)
+    fun notifyImport() {
+        Snackbar.make(container,"Imported",2000).show()
     }
 }

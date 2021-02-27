@@ -73,7 +73,7 @@ class BookmarkItemViewHolder(
                     ) {
                         item?.let {
                             m.edit(it) {
-                                Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
+//                                Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }

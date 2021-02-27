@@ -14,10 +14,6 @@ import open.shadoweyer.shearray.bookmark.item.BookmarkSeparatorViewHolder
 class BookmarkAdapter(private val m: BookmarkMediator) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var currentFolderNodes = mutableListOf<BookmarkNode>()
 
-    init {
-        m.adapter = this
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
 

@@ -7,29 +7,42 @@
     tools:context="open.shadoweyer.shearray.settings.SettingContainerFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/hello_blank_fragment"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="@dimen/bookmark_header_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="@dimen/bookmark_header_button_width"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:background="@color/app_background_color"
+            android:src="@drawable/mozac_ic_back" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_blank_fragment"
+            android:textSize="@dimen/bookmark_header_text" />
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/setting_root"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/bookmark_header_margin_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/header">
 
         <fragment
             android:name="open.shadoweyer.shearray.settings.MainSettingsFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

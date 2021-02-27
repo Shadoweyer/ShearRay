@@ -7,9 +7,13 @@ package open.shadoweyer.shearray
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.content.ContentProviderCompat.requireContext
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import open.shadoweyer.shearray.ext.components
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+
 
 class IntentReceiverActivity : Activity() {
 
@@ -26,10 +30,15 @@ class IntentReceiverActivity : Activity() {
         // do not want to propagate this flag from the launcher activity to the browser.
         intent.flags = intent.flags and Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS.inv()
 
-        MainScope().launch {
-            val className= BrowserActivity::class
-            intent.setClassName(applicationContext, className.java.name)
-            startActivity(intent)
+
+        val uri = intent.clipData?.getItemAt(0)?.uri
+
+        if (uri != null) {
+            val newIntent = Intent().apply {
+                setClassName(applicationContext, BrowserActivity::class.java.name)
+                data = uri
+            }
+            startActivity(newIntent)
             finish()
         }
     }

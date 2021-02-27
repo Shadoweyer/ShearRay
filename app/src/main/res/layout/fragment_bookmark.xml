@@ -1,10 +1,46 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background_color"
+    android:orientation="vertical"
     tools:context="open.shadoweyer.shearray.bookmark.BookmarkFragment">
+
+    <LinearLayout
+        android:id="@+id/bookmark_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bookmark_header_height"
+        android:layout_marginBottom="@dimen/bookmark_header_margin_bottom"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="@dimen/bookmark_header_button_width"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:background="@color/app_background_color"
+            android:src="@drawable/mozac_ic_back" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/bookmark_title"
+            android:textSize="@dimen/bookmark_header_text" />
+
+        <ImageButton
+            android:id="@+id/export"
+            android:layout_width="@dimen/bookmark_header_button_width"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:background="@color/app_background_color"
+            android:src="@drawable/mozac_ic_gift" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bookmark_list"
@@ -12,9 +48,7 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="5"
         tools:listitem="@layout/bookmark_item" />
 
-</FrameLayout>
+</LinearLayout>

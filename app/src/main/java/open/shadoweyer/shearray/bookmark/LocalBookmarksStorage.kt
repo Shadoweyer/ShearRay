@@ -1,17 +1,43 @@
 package open.shadoweyer.shearray.bookmark
 
 import android.content.Context
+import android.os.Environment
 import androidx.room.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import mozilla.components.concept.storage.BookmarkInfo
 import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.concept.storage.BookmarkNodeType
 import mozilla.components.concept.storage.BookmarksStorage
+import java.io.File
+import java.io.Reader
+import java.io.Writer
 import java.util.*
 
 
 class LocalBookmarksStorage(val context: Context) : BookmarksStorage {
 
     lateinit var db: BookmarkDatabase
+
+    suspend fun import(r: Reader): Boolean {
+        withContext(Dispatchers.IO){
+            val eList=BookmarkIO.toBookmarkEntity(r)
+            if (eList != null) {
+                db.getDao().insert(eList)
+            }
+            r.close()
+        }
+        return true
+    }
+
+    suspend fun export(w: Writer): Boolean {
+        val eList = db.getDao().getAll()
+        withContext(Dispatchers.IO){
+            BookmarkIO.fromBookmarkEntity(w, eList)
+            w.close()
+        }
+        return true
+    }
 
     override suspend fun addFolder(parentGuid: String, title: String, position: Int?): String {
         val uid = UUID.randomUUID().toString()
@@ -157,6 +183,9 @@ interface BookmarkDao {
 
     @Insert
     suspend fun insert(vararg bm: BookmarkEntity)
+
+    @Insert
+    suspend fun insert(eList:List<BookmarkEntity>)
 
     @Update
     suspend fun update(vararg bm: BookmarkEntity)

@@ -13,26 +13,32 @@
     <LinearLayout
         android:id="@+id/bookmark_edit_page_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/bookmark_header_height"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="20dp"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/bookmark_edit_back"
+            android:layout_width="@dimen/bookmark_header_button_width"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:background="@color/app_background_color"
+            android:src="@drawable/mozac_ic_back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Edit Bookmark"
-            android:textSize="24sp" />
+            android:text="@string/bookmark_edit_title"
+            android:textSize="@dimen/bookmark_header_text" />
 
         <ImageButton
             android:id="@+id/bookmark_edit_confirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/bookmark_header_button_width"
+            android:layout_height="match_parent"
             android:layout_weight="0"
+            android:background="@color/app_background_color"
             android:src="@drawable/mozac_ic_check" />
 
     </LinearLayout>
@@ -41,19 +47,19 @@
         android:id="@+id/bookmark_edit_title_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:text="Title"
-        android:textSize="18sp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="@dimen/bookmark_header_margin_bottom"
+        android:textSize="@dimen/bookmark_header_text_h3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bookmark_edit_page_header" />
+        app:layout_constraintTop_toBottomOf="@id/bookmark_edit_page_header"
+        android:text="@string/bookmark_edit_title_label" />
 
     <EditText
         android:id="@+id/bookmark_edit_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="50dp"
         android:layout_weight="1"
         android:ems="10"
         android:inputType="textPersonName"
@@ -66,11 +72,11 @@
         android:id="@+id/bookmark_edit_url_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="24dp"
         android:layout_weight="1"
-        android:text="Url:"
-        android:textSize="18sp"
+        android:text="@string/bookmark_edit_url_label"
+        android:textSize="@dimen/bookmark_header_text_h3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bookmark_edit_title" />
 
@@ -79,13 +85,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="50dp"
         android:layout_weight="1"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textUri"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bookmark_edit_url_label"
-        tools:text="Url here" />
+        tools:text="Url here"
+        android:autofillHints="" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,25 +9,21 @@ import kotlinx.android.synthetic.main.fragment_sectting_container.*
 import mozilla.components.support.base.feature.UserInteractionHandler
 import open.shadoweyer.shearray.R
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SettingContainerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class SettingContainerFragment : Fragment(), UserInteractionHandler {
 
+    private val layoutID=R.layout.fragment_sectting_container
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_sectting_container, container, false)
+        return inflater.inflate(layoutID, container, false)
     }
+
     fun updateTitle(title:String){
         textView.text = title
-    }
-    companion object {
     }
 
     override fun onBackPressed(): Boolean {

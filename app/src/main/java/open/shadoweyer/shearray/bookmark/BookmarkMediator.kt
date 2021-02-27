@@ -3,33 +3,42 @@ package open.shadoweyer.shearray.bookmark
 import android.content.Context
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import mozilla.components.concept.storage.BookmarkInfo
 import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.concept.storage.BookmarkNodeType
+import open.shadoweyer.shearray.BrowserActivity
 import open.shadoweyer.shearray.R
 import open.shadoweyer.shearray.ext.components
+import java.io.Reader
+import java.io.Writer
 
 class BookmarkMediator(private val context: Context) {
 
-    var adapter: BookmarkAdapter? = null
     var frag: BookmarkFragment? = null
     private val storage: LocalBookmarksStorage = LocalBookmarksStorage(context)
     private val mScope = MainScope()
 
-    fun update() {
+    fun importBookmarkFromExternalIntent(r:Reader,activity: BrowserActivity) {
         mScope.launch {
-            var testNodes = storage.getBookmarkByParent(LocalBookmarksStorage.BOOKMARK_ROOT_ID)
-            adapter?.updateData(testNodes)
+            if(storage.import(r)){
+                activity.notifyImport()
+            }
         }
     }
 
-//    fun test() {
-//        var testNodes = listOf(
-//                BookmarkNode(BookmarkNodeType.ITEM, "a item", LocalBookmarksStorage.BOOKMARK_ROOT_ID, null, "A item", "same url", null),
-//                BookmarkNode(BookmarkNodeType.FOLDER, "a folder", LocalBookmarksStorage.BOOKMARK_ROOT_ID, null, "A folder", null, null),
-//                BookmarkNode(BookmarkNodeType.ITEM, "a sub item", "a folder", null, "A sub item", "same other url", null),
-//        )
-//        adapter?.updateData(testNodes)
-//    }
+    fun export(w:Writer) {
+        mScope.launch {
+            if(storage.export(w)){
+                frag?.notifyExport()
+            }
+        }
+    }
+    fun update() {
+        mScope.launch {
+            val testNodes = storage.getBookmarkByParent(LocalBookmarksStorage.BOOKMARK_ROOT_ID)
+            frag?.updateList(testNodes)
+        }
+    }
 
     fun add(url: String, title: String, callback: suspend () -> Unit) {
         mScope.launch {
@@ -40,22 +49,20 @@ class BookmarkMediator(private val context: Context) {
 
     fun edit(item: BookmarkNode, callback: suspend () -> Unit) {
         frag?.parentFragmentManager?.beginTransaction()
-                ?.replace(R.id.top_container, BookmarkEditFragment(item) {
-                    mScope.launch {
-                        storage.updateNode(item.guid, it)
-                        val testNodes = storage.getBookmarkByParent(LocalBookmarksStorage.BOOKMARK_ROOT_ID)
-                        adapter?.updateData(testNodes)
-                        callback()
-                    }
-                })
+                ?.replace(R.id.top_container, BookmarkEditFragment(item))
                 ?.addToBackStack(null)
                 ?.commit()
     }
 
     fun open(item: BookmarkNode?) {
-        if (item?.type == BookmarkNodeType.ITEM) {
-            context.components.useCases.sessionUseCases.loadUrl(item.url ?: "")
-            frag?.parentFragmentManager?.popBackStack()
+        if (item != null) {
+            if (item.type == BookmarkNodeType.ITEM) {
+                context.components.useCases.sessionUseCases.loadUrl(item.url ?: "")
+                frag?.parentFragmentManager?.popBackStack()
+            }else if (item.type == BookmarkNodeType.FOLDER) {
+                context.components.useCases.sessionUseCases.loadUrl(item.url ?: "")
+                frag?.parentFragmentManager?.popBackStack()
+            }
         }
     }
 
@@ -78,7 +85,13 @@ class BookmarkMediator(private val context: Context) {
         mScope.launch {
             var rst = storage.deleteNode(item.guid)
             val testNodes = storage.getBookmarkByParent(LocalBookmarksStorage.BOOKMARK_ROOT_ID)
-            adapter?.updateData(testNodes)
+            frag?.updateList(testNodes)
+        }
+    }
+
+    fun updateItem(itemId:String,info: BookmarkInfo) {
+        mScope.launch {
+            storage.updateNode(itemId, info)
         }
     }
 
