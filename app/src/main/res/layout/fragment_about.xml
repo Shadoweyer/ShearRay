@@ -19,6 +19,7 @@
         android:layout_marginBottom="150dp"
         android:text="@string/about_content_slogan"
         android:textAlignment="center"
+        android:textColor="@color/bookmark_text_100"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,9 +30,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:textAlignment="center"
+        android:textColor="@color/bookmark_text_0"
         android:textIsSelectable="true"
         android:textSize="12sp"
         app:layout_constraintTop_toBottomOf="@+id/about_content"
-        tools:text="Gecko"/>
+        tools:text="Gecko" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

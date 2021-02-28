@@ -18,52 +18,39 @@ class BookmarkMediator(private val context: Context) {
     private val storage: LocalBookmarksStorage = LocalBookmarksStorage(context)
     private val mScope = MainScope()
 
-    fun importBookmarkFromExternalIntent(r:Reader,activity: BrowserActivity) {
+    //State vars
+    private val parentNodeStack = mutableListOf<BookmarkNode>()
+
+    fun warmUp() {
         mScope.launch {
-            if(storage.import(r)){
+            storage.warmUp()
+        }
+    }
+
+    /* region Bookmark IO functions */
+    fun importBookmarkFromExternalIntent(r: Reader, activity: BrowserActivity) {
+        mScope.launch {
+            if (storage.import(r)) {
                 activity.notifyImport()
             }
         }
     }
 
-    fun export(w:Writer) {
+    fun export(w: Writer) {
         mScope.launch {
-            if(storage.export(w)){
+            if (storage.export(w)) {
                 frag?.notifyExport()
             }
         }
     }
-    fun update() {
-        mScope.launch {
-            val testNodes = storage.getBookmarkByParent(LocalBookmarksStorage.BOOKMARK_ROOT_ID)
-            frag?.updateList(testNodes)
-        }
-    }
+    /* endregion name */
 
-    fun add(url: String, title: String, callback: suspend () -> Unit) {
-        mScope.launch {
-            storage.addItem(LocalBookmarksStorage.BOOKMARK_ROOT_ID, url, title, null)
-            callback()
-        }
-    }
-
+    /* region Bookmark item menu calls */
     fun edit(item: BookmarkNode, callback: suspend () -> Unit) {
         frag?.parentFragmentManager?.beginTransaction()
                 ?.replace(R.id.top_container, BookmarkEditFragment(item))
                 ?.addToBackStack(null)
                 ?.commit()
-    }
-
-    fun open(item: BookmarkNode?) {
-        if (item != null) {
-            if (item.type == BookmarkNodeType.ITEM) {
-                context.components.useCases.sessionUseCases.loadUrl(item.url ?: "")
-                frag?.parentFragmentManager?.popBackStack()
-            }else if (item.type == BookmarkNodeType.FOLDER) {
-                context.components.useCases.sessionUseCases.loadUrl(item.url ?: "")
-                frag?.parentFragmentManager?.popBackStack()
-            }
-        }
     }
 
     fun openNew(item: BookmarkNode?) {
@@ -88,17 +75,56 @@ class BookmarkMediator(private val context: Context) {
             frag?.updateList(testNodes)
         }
     }
+    /* endregion */
 
-    fun updateItem(itemId:String,info: BookmarkInfo) {
+    /* region Back button handler */
+    fun handleBackPressed(): Boolean {
+        return if (parentNodeStack.size == 0) false
+        else {
+            parentNodeStack.removeLast()
+            update()
+            true
+        }
+    }
+
+    /* endregion */
+    fun update() {
+        val parentNode = parentNodeStack.lastOrNull()
+        val parentID = parentNode?.guid ?: LocalBookmarksStorage.BOOKMARK_ROOT_ID
+        val parentTitle = parentNode?.title ?: context.getString(R.string.bookmark_title)
+        frag?.updateTitle(parentTitle)
+        mScope.launch {
+            val resultNodes = storage.getBookmarkByParent(parentID)
+            frag?.updateList(resultNodes)
+        }
+    }
+
+    fun add(url: String, title: String, callback: suspend () -> Unit) {
+        mScope.launch {
+            storage.addItem(LocalBookmarksStorage.BOOKMARK_ROOT_ID, url, title, null)
+            callback()
+        }
+    }
+
+
+    fun open(item: BookmarkNode?) {
+        if (item != null) {
+            if (item.type == BookmarkNodeType.ITEM) {
+                context.components.useCases.sessionUseCases.loadUrl(item.url ?: "")
+                frag?.parentFragmentManager?.popBackStack()
+            } else if (item.type == BookmarkNodeType.FOLDER) {
+                parentNodeStack.add(item)
+                update()
+            }
+        }
+    }
+
+
+    fun updateItem(itemId: String, info: BookmarkInfo) {
         mScope.launch {
             storage.updateNode(itemId, info)
         }
     }
 
-    fun warmUp() {
-        mScope.launch {
-            storage.warmUp()
-        }
-    }
 
 }

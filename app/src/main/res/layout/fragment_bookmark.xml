@@ -25,7 +25,7 @@
             android:src="@drawable/mozac_ic_back" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/bookmark_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -40,6 +40,13 @@
             android:background="@color/app_background_color"
             android:src="@drawable/mozac_ic_gift" />
 
+        <ImageButton
+            android:id="@+id/bookmark_close"
+            android:layout_width="@dimen/bookmark_header_button_width"
+            android:layout_height="match_parent"
+            android:background="@color/app_background_color"
+            android:src="@drawable/mozac_ic_close" />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -49,6 +56,8 @@
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="5"
-        tools:listitem="@layout/bookmark_item" />
+        tools:listitem="@layout/bookmark_item">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

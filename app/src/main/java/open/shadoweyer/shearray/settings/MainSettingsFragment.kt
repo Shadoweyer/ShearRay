@@ -48,9 +48,6 @@ class MainSettingsFragment : PreferenceFragmentCompat() {
                     .replace(R.id.setting_root, PrivacySettingsFragment())
                     .addToBackStack(null)
                     .commit()
-//            getActionBarUpdater().apply {
-//                updateTitle(R.string.privacy_settings)
-//            }
             true
         }
     }

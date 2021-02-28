@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/setting_back"
             android:layout_width="@dimen/bookmark_header_button_width"
             android:layout_height="match_parent"
             android:layout_weight="0"
@@ -28,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hello_blank_fragment"
+            android:textColor="@color/bookmark_text_100"
             android:textSize="@dimen/bookmark_header_text" />
     </LinearLayout>
 

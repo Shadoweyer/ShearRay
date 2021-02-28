@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/bookmark_item_height">
-
-    <ImageButton
-        android:id="@+id/overflow_menu"
-        android:layout_width="@dimen/bookmark_header_button_width"
-        android:layout_height="@dimen/bookmark_header_button_width"
-        android:background="@color/app_background_color"
-        android:contentDescription="@string/content_description_menu"
-        android:src="@drawable/mozac_ic_menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.49" />
+    android:layout_height="@dimen/bookmark_item_height"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
 
     <ImageView
@@ -24,38 +12,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:background="@drawable/mozac_ic_fence"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@drawable/mozac_ic_fence" />
 
-    <TextView
-        android:id="@+id/url"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textAlignment="viewStart"
-        android:textColor="@color/bookmark_text_0"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintStart_toEndOf="@id/favicon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="https://example.com/" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="20dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textAlignment="viewStart"
-        android:textColor="@color/bookmark_text_100"
-        android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/favicon"
-        tools:text="Example site" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textAlignment="viewStart"
+            android:textColor="@color/bookmark_text_100"
+            android:textSize="18sp"
+            tools:text="Example site" />
+
+        <TextView
+            android:id="@+id/url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/bookmark_text_0"
+            android:textSize="12sp"
+            tools:text="https://example.com/" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/overflow_menu"
+        android:layout_width="@dimen/bookmark_header_button_width"
+        android:layout_height="@dimen/bookmark_header_button_width"
+        android:background="@color/app_background_color"
+        android:contentDescription="@string/content_description_menu"
+        android:src="@drawable/mozac_ic_menu" />
+
+</LinearLayout>

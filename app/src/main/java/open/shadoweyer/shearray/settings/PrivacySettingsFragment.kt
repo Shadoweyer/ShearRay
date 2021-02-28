@@ -5,9 +5,7 @@
 package open.shadoweyer.shearray.settings
 
 import android.os.Bundle
-import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.PreferenceFragmentCompat
-import mozilla.components.concept.engine.EngineSession.TrackingProtectionPolicy
 import open.shadoweyer.shearray.R
 import open.shadoweyer.shearray.ext.getPreferenceKey
 import open.shadoweyer.shearray.ext.requireComponents
@@ -23,11 +21,15 @@ class PrivacySettingsFragment : PreferenceFragmentCompat() {
         val prefTrackingProtectionNormal = findPreference(trackingProtectionNormalKey)
         val prefTrackingProtectionPrivate = findPreference(trackingProtectionPrivateKey)
 
-        prefTrackingProtectionNormal.onPreferenceChangeListener = getChangeListenerForTrackingProtection { enabled ->
-            requireComponents.core.createTrackingProtectionPolicy(normalMode = enabled)
+        prefTrackingProtectionNormal.setOnPreferenceChangeListener { preference, newValue ->
+            val policy = requireComponents.core.createTrackingProtectionPolicy(normalMode = newValue as Boolean)
+            requireComponents.useCases.settingsUseCases.updateTrackingProtection.invoke(policy)
+            true
         }
-        prefTrackingProtectionPrivate.onPreferenceChangeListener = getChangeListenerForTrackingProtection { enabled ->
-            requireComponents.core.createTrackingProtectionPolicy(privateMode = enabled)
+        prefTrackingProtectionPrivate.setOnPreferenceChangeListener { preference, newValue ->
+            val policy = requireComponents.core.createTrackingProtectionPolicy(privateMode = newValue as Boolean)
+            requireComponents.useCases.settingsUseCases.updateTrackingProtection.invoke(policy)
+            true
         }
     }
 
@@ -35,15 +37,5 @@ class PrivacySettingsFragment : PreferenceFragmentCompat() {
         super.onResume()
         (parentFragment as SettingContainerFragment).updateTitle(getString(R.string.setting_main_privacy))
 
-    }
-
-    private fun getChangeListenerForTrackingProtection(
-        createTrackingProtectionPolicy: (Boolean) -> TrackingProtectionPolicy
-    ): OnPreferenceChangeListener {
-        return OnPreferenceChangeListener { _, value ->
-            val policy = createTrackingProtectionPolicy(value as Boolean)
-            requireComponents.useCases.settingsUseCases.updateTrackingProtection.invoke(policy)
-            true
-        }
     }
 }
