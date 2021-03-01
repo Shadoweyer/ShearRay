@@ -146,7 +146,8 @@ class ToolbarIntegration(
 
         return sessionMenuItems + listOf(
                 TextMenuCandidate(text = "Bookmark") {
-                    fragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.fragment_open_enter, R.anim.fragment_open_exit)
+                    fragmentManager?.beginTransaction()
+                            ?.setCustomAnimations(R.animator.frag_in, R.animator.frag_out, R.animator.frag_in, R.animator.frag_out)
                             ?.replace(R.id.top_container, BookmarkFragment())
                             ?.addToBackStack(null)
                             ?.commit()
