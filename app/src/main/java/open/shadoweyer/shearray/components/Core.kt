@@ -27,9 +27,7 @@ import mozilla.components.feature.media.middleware.RecordingDevicesMiddleware
 import mozilla.components.feature.search.middleware.SearchMiddleware
 import mozilla.components.feature.session.HistoryDelegate
 import mozilla.components.feature.sitepermissions.SitePermissionsStorage
-import mozilla.components.feature.webnotifications.WebNotificationFeature
 import open.shadoweyer.shearray.AppRequestInterceptor
-import open.shadoweyer.shearray.BrowserActivity
 import open.shadoweyer.shearray.EngineProvider
 import open.shadoweyer.shearray.R
 import open.shadoweyer.shearray.R.string.*
@@ -96,9 +94,6 @@ class Core(private val context: Context) {
 
             // Install the "icons" WebExtension to automatically load icons for every visited website.
             icons.install(engine, store)
-
-            WebNotificationFeature(context, engine, icons, R.drawable.ic_notification,
-                sitePermissionsStorage, BrowserActivity::class.java)
 
             MediaSessionFeature(context, MediaSessionService::class.java, store).start()
         }
