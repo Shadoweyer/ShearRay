@@ -102,7 +102,6 @@ dependencies {
     implementation Deps.mozilla_feature_findinpage
     implementation Deps.mozilla_feature_media
     implementation Deps.mozilla_feature_sitepermissions
-    implementation Deps.mozilla_feature_intent
     implementation Deps.mozilla_feature_search
     implementation Deps.mozilla_feature_session
     implementation Deps.mozilla_feature_toolbar
@@ -121,7 +120,6 @@ dependencies {
     implementation Deps.mozilla_support_ktx
     implementation Deps.mozilla_support_rustlog
     implementation Deps.mozilla_support_rusthttp
-    implementation Deps.mozilla_support_webextensions
 
     implementation Deps.kotlin_stdlib
     implementation Deps.kotlin_coroutines

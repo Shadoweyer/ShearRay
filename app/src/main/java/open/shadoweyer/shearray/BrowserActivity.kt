@@ -14,12 +14,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import mozilla.components.browser.state.state.SessionState
-import mozilla.components.browser.state.state.WebExtensionState
 import mozilla.components.concept.engine.EngineView
-import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
 import mozilla.components.support.base.feature.UserInteractionHandler
-import mozilla.components.support.base.log.logger.Logger
-import mozilla.components.support.utils.SafeIntent
 import open.shadoweyer.shearray.browser.BrowserFragment
 import open.shadoweyer.shearray.ext.components
 
@@ -28,8 +24,7 @@ import open.shadoweyer.shearray.ext.components
  */
 open class BrowserActivity : AppCompatActivity() {
 
-    private val sessionId: String?
-        get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
+    private val sessionId: String? = null
 
     /**
      * Returns a new instance of [BrowserFragment] to display.
@@ -41,7 +36,6 @@ open class BrowserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        print(intent)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.container, createBrowserFragment(sessionId))
