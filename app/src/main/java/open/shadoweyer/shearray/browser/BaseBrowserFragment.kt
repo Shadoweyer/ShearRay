@@ -11,11 +11,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.fragment_browser.*
 import kotlinx.android.synthetic.main.fragment_browser.view.*
 import mozilla.components.browser.state.selector.selectedTab
+import mozilla.components.browser.toolbar.behavior.BrowserToolbarBehavior
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.feature.findinpage.view.FindInPageView
@@ -23,6 +25,7 @@ import mozilla.components.feature.prompts.PromptFeature
 import mozilla.components.feature.session.FullScreenFeature
 import mozilla.components.feature.session.SessionFeature
 import mozilla.components.feature.session.SwipeRefreshFeature
+import mozilla.components.feature.session.behavior.EngineViewBrowserToolbarBehavior
 import mozilla.components.feature.sitepermissions.SitePermissionsFeature
 import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.support.base.feature.PermissionsFeature
@@ -36,9 +39,10 @@ import open.shadoweyer.shearray.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISS
 import open.shadoweyer.shearray.AppPermissionCodes.REQUEST_CODE_PROMPT_PERMISSIONS
 import open.shadoweyer.shearray.R
 import open.shadoweyer.shearray.downloads.DownloadService
-import open.shadoweyer.shearray.ext.getPreferenceKey
 import open.shadoweyer.shearray.ext.requireComponents
 import open.shadoweyer.shearray.pip.PictureInPictureIntegration
+import mozilla.components.browser.toolbar.behavior.ToolbarPosition as MozacToolbarBehaviorToolbarPosition
+import mozilla.components.feature.session.behavior.ToolbarPosition as MozacEngineBehaviorToolbarPosition
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -96,6 +100,13 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
                 owner = this,
                 view = view)
 
+        (toolbar.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
+            behavior = BrowserToolbarBehavior(
+                    view.context,
+                    null,
+                    MozacToolbarBehaviorToolbarPosition.BOTTOM
+            )
+        }
         toolbarIntegration.set(
                 feature = ToolbarIntegration(
                         requireContext(),
@@ -202,6 +213,15 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
                 owner = this,
                 view = view
         )
+        (swipeRefresh.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
+            behavior = EngineViewBrowserToolbarBehavior(
+                    context,
+                    null,
+                    swipeRefresh,
+                    toolbar.height,
+                    MozacEngineBehaviorToolbarPosition.BOTTOM
+            )
+        }
 
         swipeRefreshFeature.set(
                 feature = SwipeRefreshFeature(
@@ -278,6 +298,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
         Logger.info("Fragment onActivityResult received with " +
                 "requestCode: $requestCode, resultCode: $resultCode, data: $data")
 
-        activityResultHandler.any { it.onActivityResult(requestCode, resultCode, data) }
+        activityResultHandler.any { it.onActivityResult(requestCode, data, resultCode) }
     }
 }

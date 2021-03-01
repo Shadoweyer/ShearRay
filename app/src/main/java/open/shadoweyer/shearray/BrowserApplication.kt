@@ -8,7 +8,6 @@ import android.app.Application
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import mozilla.components.browser.session.Session
 import mozilla.components.browser.state.action.SystemAction
 import mozilla.components.support.base.log.Log
 import mozilla.components.support.base.log.sink.AndroidLogSink
@@ -16,7 +15,6 @@ import mozilla.components.support.ktx.android.content.isMainProcess
 import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
 import mozilla.components.support.rusthttp.RustHttpConfig
 import mozilla.components.support.rustlog.RustLog
-import mozilla.components.support.webextensions.WebExtensionSupport
 import java.util.concurrent.TimeUnit
 
 open class BrowserApplication : Application() {
@@ -39,22 +37,6 @@ open class BrowserApplication : Application() {
 
         restoreBrowserState()
 
-        WebExtensionSupport.initialize(
-                runtime = components.core.engine,
-                store = components.core.store,
-                onNewTabOverride = { _, engineSession, url ->
-                    val session = Session(url)
-                    components.core.sessionManager.add(session, true, engineSession)
-                    session.id
-                },
-                onCloseTabOverride = { _, sessionId ->
-                    components.useCases.tabsUseCases.removeTab(sessionId)
-                },
-                onSelectTabOverride = { _, sessionId ->
-                    val selected = components.core.sessionManager.findSessionById(sessionId)
-                    selected?.let { components.useCases.tabsUseCases.selectTab(it) }
-                }
-        )
         components.bookmarkMediator.warmUp()
 
     }
