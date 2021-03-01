@@ -13,8 +13,6 @@ import mozilla.components.support.base.log.Log
 import mozilla.components.support.base.log.sink.AndroidLogSink
 import mozilla.components.support.ktx.android.content.isMainProcess
 import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
-import mozilla.components.support.rusthttp.RustHttpConfig
-import mozilla.components.support.rustlog.RustLog
 import java.util.concurrent.TimeUnit
 
 open class BrowserApplication : Application() {
@@ -22,7 +20,6 @@ open class BrowserApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        RustHttpConfig.setClient(lazy { components.core.client })
         setupLogging()
 
         if (!isMainProcess()) {
@@ -65,5 +62,4 @@ open class BrowserApplication : Application() {
 private fun setupLogging() {
     // We want the log messages of all builds to go to Android logcat
     Log.addSink(AndroidLogSink())
-    RustLog.enable()
 }
