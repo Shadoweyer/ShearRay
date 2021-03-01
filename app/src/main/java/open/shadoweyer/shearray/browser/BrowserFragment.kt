@@ -26,7 +26,6 @@ import open.shadoweyer.shearray.tabs.TabsTrayFragment
  */
 class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     private val thumbnailsFeature = ViewBoundFeatureWrapper<BrowserThumbnails>()
-    private val readerViewFeature = ViewBoundFeatureWrapper<ReaderViewIntegration>()
     private val webExtToolbarFeature = ViewBoundFeatureWrapper<WebExtensionToolbarFeature>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,19 +65,6 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                 view = view
         )
 
-        readerViewFeature.set(
-            feature = ReaderViewIntegration(
-                requireContext(),
-                requireComponents.core.engine,
-                requireComponents.core.store,
-                view.toolbar,
-                view.readerViewBar,
-                view.readerViewAppearanceButton
-            ),
-            owner = this,
-            view = view
-        )
-
         webExtToolbarFeature.set(
             feature = WebExtensionToolbarFeature(
                 view.toolbar,
@@ -99,9 +85,6 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             commit()
         }
     }
-
-    override fun onBackPressed(): Boolean =
-        readerViewFeature.onBackPressed() || super.onBackPressed()
 
     companion object {
         fun create(sessionId: String? = null) = BrowserFragment().apply {

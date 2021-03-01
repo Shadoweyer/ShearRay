@@ -24,7 +24,6 @@ import mozilla.components.concept.fetch.Client
 import mozilla.components.feature.downloads.DownloadMiddleware
 import mozilla.components.feature.media.MediaSessionFeature
 import mozilla.components.feature.media.middleware.RecordingDevicesMiddleware
-import mozilla.components.feature.readerview.ReaderViewMiddleware
 import mozilla.components.feature.search.middleware.SearchMiddleware
 import mozilla.components.feature.session.HistoryDelegate
 import mozilla.components.feature.sitepermissions.SitePermissionsStorage
@@ -32,12 +31,10 @@ import mozilla.components.feature.webnotifications.WebNotificationFeature
 import open.shadoweyer.shearray.AppRequestInterceptor
 import open.shadoweyer.shearray.BrowserActivity
 import open.shadoweyer.shearray.EngineProvider
-import open.shadoweyer.shearray.ext.getPreferenceKey
 import open.shadoweyer.shearray.R
-import open.shadoweyer.shearray.R.string.pref_key_remote_debugging
-import open.shadoweyer.shearray.R.string.pref_key_tracking_protection_normal
-import open.shadoweyer.shearray.R.string.pref_key_tracking_protection_private
+import open.shadoweyer.shearray.R.string.*
 import open.shadoweyer.shearray.downloads.DownloadService
+import open.shadoweyer.shearray.ext.getPreferenceKey
 import open.shadoweyer.shearray.media.MediaSessionService
 
 private const val DAY_IN_MINUTES = 24 * 60L
@@ -78,7 +75,6 @@ class Core(private val context: Context) {
             middleware = listOf(
                 DownloadMiddleware(context, DownloadService::class.java),
                 ThumbnailsMiddleware(thumbnailStorage),
-                ReaderViewMiddleware(),
                 SearchMiddleware(context),
                 RecordingDevicesMiddleware(context)
             ) + EngineMiddleware.create(engine, ::findSessionById)

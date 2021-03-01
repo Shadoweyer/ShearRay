@@ -55,8 +55,6 @@ open class BrowserApplication : Application() {
 
         components.useCases.tabsUseCases.restore(sessionStorage)
 
-        // Now that we have restored our previous state (if there's one) let's setup auto saving the state while
-        // the app is used.
         sessionStorage.autoSave(store)
                 .periodicallyInForeground(interval = 30, unit = TimeUnit.SECONDS)
                 .whenGoingToBackground()
