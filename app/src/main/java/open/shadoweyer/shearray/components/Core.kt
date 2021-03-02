@@ -24,7 +24,6 @@ import mozilla.components.concept.fetch.Client
 import mozilla.components.feature.downloads.DownloadMiddleware
 import mozilla.components.feature.media.MediaSessionFeature
 import mozilla.components.feature.media.middleware.RecordingDevicesMiddleware
-import mozilla.components.feature.search.middleware.SearchMiddleware
 import mozilla.components.feature.session.HistoryDelegate
 import mozilla.components.feature.sitepermissions.SitePermissionsStorage
 import open.shadoweyer.shearray.AppRequestInterceptor
@@ -73,7 +72,6 @@ class Core(private val context: Context) {
             middleware = listOf(
                 DownloadMiddleware(context, DownloadService::class.java),
                 ThumbnailsMiddleware(thumbnailStorage),
-                SearchMiddleware(context),
                 RecordingDevicesMiddleware(context)
             ) + EngineMiddleware.create(engine, ::findSessionById)
         )

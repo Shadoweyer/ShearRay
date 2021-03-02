@@ -10,11 +10,8 @@ import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.concept.engine.Engine
 import mozilla.components.feature.contextmenu.ContextMenuUseCases
 import mozilla.components.feature.downloads.DownloadsUseCases
-import mozilla.components.feature.search.SearchUseCases
-import mozilla.components.feature.search.ext.toDefaultSearchEngineProvider
 import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.session.SettingsUseCases
-import mozilla.components.feature.tabs.CustomTabsUseCases
 import mozilla.components.feature.tabs.TabsUseCases
 
 /**
@@ -38,13 +35,6 @@ class UseCases(
     val tabsUseCases: TabsUseCases by lazy { TabsUseCases(store, sessionManager) }
 
     /**
-     * Use cases that provide search engine integration.
-     */
-    val searchUseCases by lazy {
-        SearchUseCases(store, store.toDefaultSearchEngineProvider(), tabsUseCases)
-    }
-
-    /**
      * Use cases that provide settings management.
      */
     val settingsUseCases by lazy { SettingsUseCases(engine, store) }
@@ -59,8 +49,4 @@ class UseCases(
      */
     val downloadsUseCases: DownloadsUseCases by lazy { DownloadsUseCases(store) }
 
-    /**
-     * Use cases related to Custom Tabs.
-     */
-    val customTabsUseCases: CustomTabsUseCases by lazy { CustomTabsUseCases(sessionManager, sessionUseCases.loadUrl) }
 }

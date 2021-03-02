@@ -17,6 +17,7 @@ import mozilla.components.browser.domains.autocomplete.ShippedDomainsProvider
 import mozilla.components.browser.menu2.BrowserMenuController
 import mozilla.components.browser.session.Session
 import mozilla.components.browser.session.SessionManager
+import mozilla.components.browser.state.selector.findTabOrCustomTab
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.store.BrowserStore
@@ -201,11 +202,18 @@ class ToolbarIntegration(
             context.components.core.store,
             context.components.useCases.sessionUseCases.loadUrl,
             { searchTerms ->
-                context.components.useCases.searchUseCases.defaultSearch.invoke(
-                        searchTerms = searchTerms,
-                        searchEngine = null,
-                        parentSessionId = null
-                )
+                val sUrl = context.components.searchMediator.getSearchUrl(searchTerms)
+                val sID = context.components.core.sessionManager.selectedSession?.id
+                if (sID == null) {
+                    tabsUseCases.addTab(sUrl)
+                } else {
+                    val existingTab = store.state.findTabOrCustomTab(sID)
+                    if (existingTab != null) {
+                        context.components.useCases.sessionUseCases.loadUrl(sUrl)
+                    } else {
+                        tabsUseCases.addTab(sUrl)
+                    }
+                }
             },
             sessionId
     )

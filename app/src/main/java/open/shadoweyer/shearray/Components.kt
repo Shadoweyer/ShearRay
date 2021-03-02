@@ -6,14 +6,15 @@ package open.shadoweyer.shearray
 
 import android.content.Context
 import open.shadoweyer.shearray.bookmark.BookmarkMediator
-import open.shadoweyer.shearray.components.*
+import open.shadoweyer.shearray.components.Core
+import open.shadoweyer.shearray.components.UseCases
+import open.shadoweyer.shearray.search.SearchMediator
 
 /**
  * Provides access to all components.
  */
 class Components(private val context: Context) {
     val core by lazy { Core(context) }
-    val search by lazy { Search(context) }
     val useCases by lazy {
         UseCases(
             context,
@@ -24,5 +25,6 @@ class Components(private val context: Context) {
     }
 
     val bookmarkMediator by lazy { BookmarkMediator(context) }
+    val searchMediator by lazy { SearchMediator(context) }
 
 }
