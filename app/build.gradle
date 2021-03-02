@@ -10,7 +10,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply from: "$project.rootDir/automation/gradle/versionCode.gradle"
 
 android {
     compileSdkVersion Config.compileSdkVersion
@@ -126,8 +125,6 @@ dependencies {
     implementation Deps.androidx_preference_ktx
     implementation Deps.androidx_work_runtime_ktx
     implementation Deps.google_material
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 

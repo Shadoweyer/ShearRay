@@ -40,7 +40,6 @@ import open.shadoweyer.shearray.AppPermissionCodes.REQUEST_CODE_PROMPT_PERMISSIO
 import open.shadoweyer.shearray.R
 import open.shadoweyer.shearray.downloads.DownloadService
 import open.shadoweyer.shearray.ext.requireComponents
-import open.shadoweyer.shearray.pip.PictureInPictureIntegration
 import mozilla.components.browser.toolbar.behavior.ToolbarPosition as MozacToolbarBehaviorToolbarPosition
 import mozilla.components.feature.session.behavior.ToolbarPosition as MozacEngineBehaviorToolbarPosition
 
@@ -59,7 +58,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
     private val fullScreenFeature = ViewBoundFeatureWrapper<FullScreenFeature>()
     private val findInPageIntegration = ViewBoundFeatureWrapper<FindInPageIntegration>()
     private val sitePermissionFeature = ViewBoundFeatureWrapper<SitePermissionsFeature>()
-    private val pictureInPictureIntegration = ViewBoundFeatureWrapper<PictureInPictureIntegration>()
     private val swipeRefreshFeature = ViewBoundFeatureWrapper<SwipeRefreshFeature>()
     private val windowFeature = ViewBoundFeatureWrapper<WindowFeature>()
 
@@ -204,15 +202,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
                 view = view
         )
 
-        pictureInPictureIntegration.set(
-                feature = PictureInPictureIntegration(
-                        requireComponents.core.store,
-                        requireActivity(),
-                        sessionId
-                ),
-                owner = this,
-                view = view
-        )
         (swipeRefresh.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
             behavior = EngineViewBrowserToolbarBehavior(
                     context,
@@ -258,7 +247,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
     }
 
     final override fun onHomePressed(): Boolean {
-        return pictureInPictureIntegration.get()?.onHomePressed() ?: false
+        return false
     }
 
     final override fun onPictureInPictureModeChanged(enabled: Boolean) {
