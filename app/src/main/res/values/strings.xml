@@ -136,7 +136,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="setting_main_title">Setting</string>
-    <string name="setting_main_about">About</string>
     <string name="setting_main_privacy">Privacy setting</string>
     <string name="bookmark_title">Bookmark</string>
     <string name="bookmark_edit_title_label">Title</string>

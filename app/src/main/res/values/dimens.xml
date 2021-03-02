@@ -11,7 +11,6 @@
     <dimen name="bookmark_header_text">25sp</dimen>
     <dimen name="bookmark_header_button_width">50dp</dimen>
     <dimen name="bookmark_header_margin_bottom">20dp</dimen>
-    <dimen name="bookmark_favicon_width_height">20dp</dimen>
     <dimen name="bookmark_item_height">50dp</dimen>
 
     <dimen name="bookmark_header_text_h3">20sp</dimen>
